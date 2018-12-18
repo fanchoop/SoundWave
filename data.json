@@ -1,0 +1,115 @@
+{
+    "idPlage": 1,
+    "titre": "Belle",
+    "duree": 40000,
+    "nbLike": 5,
+    "nbCommentaire": 80,
+    "nbEcoute": 1000,
+    "cheminFichierJSON": "/home/toto/fichier.json",
+    "idAuteur": 1,
+    "nomAuteur": "Jean",
+    "anneePlage": 2018,
+    "cheminPochette": "/home/toto/pochette.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+{
+    "idPlage": 2,
+    "titre": "Dream world",
+    "duree": 60000,
+    "nbLike": 15,
+    "nbCommentaire": 0,
+    "nbEcoute": 1500,
+    "cheminFichierJSON": "/home/toto/fichier8.json",
+    "idAuteur": 2,
+    "nomAuteur": "Bon",
+    "anneePlage": 2016,
+    "cheminPochette": "/home/toto/pochette2.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+{
+    "idPlage": 3,
+    "titre": "Los bananas",
+    "duree": 80000,
+    "nbLike": 25,
+    "nbCommentaire": 3000,
+    "nbEcoute": 2000,
+    "cheminFichierJSON": "/home/toto/fichier7.json",
+    "idAuteur": 3,
+    "nomAuteur": "Marc",
+    "anneePlage": 2000,
+    "cheminPochette": "/home/toto/pochette3.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+{
+    "idPlage": 4,
+    "titre": "Ce rêve bleu",
+    "duree": 40000,
+    "nbLike": 2,
+    "nbCommentaire": 10,
+    "nbEcoute": 10,
+    "cheminFichierJSON": "/home/toto/fichier8.json",
+    "idAuteur": 3,
+    "nomAuteur": "Marc",
+    "anneePlage": 2000,
+    "cheminPochette": "/home/toto/pochette4.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+{
+    "idPlage": 5,
+    "titre": "Sous le vent",
+    "duree": 10000,
+    "nbLike": 800,
+    "nbCommentaire": 5,
+    "nbEcoute": 20000,
+    "cheminFichierJSON": "/home/toto/fichier9.json",
+    "idAuteur": 4,
+    "nomAuteur": "Jean-Marc",
+    "anneePlage": 2018,
+    "cheminPochette": "/home/toto/pochette3.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+
+{
+    "idPlage": 6,
+    "titre": "Black storm",
+    "duree": 15000,
+    "nbLike": 4,
+    "nbCommentaire": 80,
+    "nbEcoute": 1000,
+    "cheminFichierJSON": "/home/toto/fichier.json",
+    "idAuteur": 1,
+    "nomAuteur": "Jean",
+    "anneePlage": 2018,
+    "cheminPochette": "/home/toto/pochette.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+
+{
+    "idPlage": 7,
+    "titre": "One more light",
+    "duree": 70000,
+    "nbLike": 0,
+    "nbCommentaire": 0,
+    "nbEcoute": 1000,
+    "cheminFichierJSON": "/home/toto/fichier.json",
+    "idAuteur": 8,
+    "nomAuteur": "François",
+    "anneePlage": 2005,
+    "cheminPochette": "/home/toto/pochette.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
+
+{
+    "idPlage": 1,
+    "titre": "In the end",
+    "duree": 20000,
+    "nbLike": 5,
+    "nbCommentaire": 80,
+    "nbEcoute": 1000,
+    "cheminFichierJSON": "/home/toto/fichier.json",
+    "idAuteur": 1,
+    "nomAuteur": "Jean",
+    "anneePlage": 2018,
+    "cheminPochette": "/home/toto/pochette.jpg",
+    "cheminMP3": "/home/toto/toto.mp3"
+}
