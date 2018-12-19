@@ -3,7 +3,7 @@ Projet LP S2IMA 2018-2019
 
 # Api RESTful
 
-pour faire fonctionner l'api REST il faut un serveur local mongodb
+pour faire fonctionner l'api REST il faut un serveur local mongodb:
 - nom de la base: soundwave  
 - nom de la collection: plage  
 
