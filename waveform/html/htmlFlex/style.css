@@ -1,0 +1,10 @@
+.waveform {
+    position:relative;
+    width: 800px;
+    height: 300px;
+    border: solid 1px black;
+}
+
+.box {
+    background-color: orange;
+}

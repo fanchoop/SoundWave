@@ -7,6 +7,14 @@ html
     script(src="/javascripts/script.js")
 
   body
-    block content
+    nav.navbar.navbar-dark.bg-dark.navbar-expand
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a#add(href="/add-song", title="Ajouter une musique").nav-link Ajouter une musique
+        li.nav-item
+          a#manage(href="/manage-song", title="gérer les musique").nav-link Gérer les musiques
+
+    .content
+      block content
 
 

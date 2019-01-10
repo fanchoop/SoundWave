@@ -1,0 +1,24 @@
+extends layout
+
+
+block content
+  script(src="/javascripts/add-song-script.js")
+  h3(style="margin-left: 5px;") Ajout d'une musique
+  form#form-song(method="post" onsubmit="songSubmit(e);" enctype="multipart/form-data")
+    .form-group.card-body  
+      .input-group.mb-3
+        .custom-file
+          label#music-label.custom-file-label(for='music-inp') Choisissez une musique (.mp3, .wav)
+          input#music-inp(type='file' required accept="audio/mp3, audio/wav" name="music" onchange="updateFilenames(this, document.getElementById('music-label'));updateFilenames(this, document.getElementById('music-name'));")
+      .input-group.mb-3
+        .custom-file
+          label#cover-label.custom-file-label(for='cover') Choisissez une image pour la cover
+          input#cover(type='file' required accept="audio/mp3, audio/wav" name="cover" onchange="updateFilenames(this, document.getElementById('cover-label'));")
+      .form-group
+        label(for="music-name") Nom
+        input#music-name.form-control(type="text" placeholder="Nom de la musique" name="name" value="" required)
+      .form-group
+        label(for="author-name") Auteur
+        input#author-name.form-control(type="text" placeholder="Nom de la musique" name="author" value="" required)
+      button.btn.btn-success.float-right(type="submit") Envoyer
+  

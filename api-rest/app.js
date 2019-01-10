@@ -7,7 +7,8 @@ var expressMongoRest = require('express-mongo-rest');
 
 var app = express();
 
-var ajoutRouter = require('./routes/ajout.js');
+var addSongRouter = require('./routes/add-song');
+var manageSongRouter = require('./routes/manage-song')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,7 +20,8 @@ app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/ajout', ajoutRouter);
+app.use('/add-song', addSongRouter);
+app.use('/manage-song', manageSongRouter);
 app.use('/api', expressMongoRest('mongodb://localhost:27017/soundwave'))
 
 // catch 404 and forward to error handler

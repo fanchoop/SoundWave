@@ -12,6 +12,7 @@
     "express-mongo-rest": "^0.1.2",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1"
   }
 }

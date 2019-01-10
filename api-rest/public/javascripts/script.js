@@ -1,18 +1,34 @@
-function extractFilename(path) {
-  if (path.substr(0, 12) == "C:\\fakepath\\")
-    return path.substr(12); // modern browser
-  let x;
-  x = path.lastIndexOf('/');
-  if (x >= 0) // Unix-based path
-    return path.substr(x + 1);
-  x = path.lastIndexOf('\\');
-  if (x >= 0) // Windows-based path
-    return path.substr(x + 1);
-  return path; // just the file name
+function appendAlert(msg, timeout) {
+    let cross = document.createElement("span");
+    cross.classList.add("delete-icon");
+    cross.classList.add("float-right");
+    cross.innerText = "×";
+
+    let alert = document.createElement("div");
+    alert.classList.add("alert");
+    alert.classList.add("alert-success");
+    alert.classList.add("float-right");
+
+    alert.setAttribute("role", "alert");
+    alert.style.transition = "opacity " + timeout*0.66 + "ms ease-in";
+    alert.innerText = msg;
+    alert.onclick = function(e) {
+        closeAlert(e.currentTarget);
+    };
+
+    alert.appendChild(cross);
+    document.body.appendChild(alert);
+    
+    window.setTimeout(function() {
+        alert.classList.add('masking');
+    }, timeout*0.34);
+    window.setTimeout(function() {
+        closeAlert(alert);
+    }, timeout);
 }
 
-function updateFilenames(path) {
-  let name = extractFilename(path);
-  document.getElementById('file-label').innerText = name;
-  document.getElementById('music-name').value = name;
+function closeAlert(alert) {
+    if (alert.parentElement != null) {
+        alert.parentElement.removeChild(alert);
+    }
 }
