@@ -9,6 +9,8 @@ var app = express();
 
 var addSongRouter = require('./routes/add-song');
 var manageSongRouter = require('./routes/manage-song')
+var musiqueRouter = require('./routes/music-rest');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,9 +22,11 @@ app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/add-song', addSongRouter);
 app.use('/manage-song', manageSongRouter);
-app.use('/api', expressMongoRest('mongodb://localhost:27017/soundwave'))
+app.use('/api', expressMongoRest('mongodb://localhost:27017/soundwave'));
+app.use('/musique', musiqueRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) { next(createError(404)); });
