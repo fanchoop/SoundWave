@@ -1,8 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var callback = () => (toto), toto;
-const dbName = 'lps2ima';
+const dbName = 'soundwave';
 // Connection url
-var url = 'mongodb://localhost:27017/lps2ima';
+var url = 'mongodb://localhost:27017/'+dbName;
 // Connect using MongoClient
 MongoClient.connect(url,{ useNewUrlParser: true } , function(err, db) {
     // Get an additional db

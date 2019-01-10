@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var expressMongoRest = require('express-mongo-rest');
 
 var app = express();
 
@@ -25,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/add-song', addSongRouter);
 app.use('/manage-song', manageSongRouter);
-app.use('/api', expressMongoRest('mongodb://localhost:27017/soundwave'));
 app.use('/musique', musiqueRouter);
 
 // catch 404 and forward to error handler

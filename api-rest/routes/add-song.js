@@ -11,7 +11,7 @@ router.route('/')
         console.log(req.body.author);
         console.log(req.body.music);
         res.send();
-    })
+    });
 
 
 module.exports = router;
