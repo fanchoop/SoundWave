@@ -1,24 +1,27 @@
-* {box-sizing: border-box; border: 1px solid black;}
+* {box-sizing: border-box; /*border: 1px solid black;*/}
 /*flex grow*/
 .audioplayer {
 	display : flex;
-	flex: grow;
+	flex-grow: 1;
 	max-width: 100%;
 	min-width: 100px;
 	min-height: 100%;
     position: relative;
 	flex-direction: column;
     min-height: 210px;
-	background-color: #666;
+	background-color: #dedede;
 }
 
 .visuel {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 0;backgr
     height: 220px;
     width: 220px;
-    background-image: url('http://lorempicsum.com/simpsons/220/220/5');
+    background-image: url('images/Flume.jpg');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
     margin: 10px;
 }
 
@@ -72,8 +75,6 @@ content: '';
   }
 .controls button {
     border-radius: 7px;
-    height: 40px
-    display: block;
     border: none;
     background-color: #f96d00;
     color: #fff;
@@ -96,14 +97,15 @@ content: '';
 
 .waveform {
 	margin-left: 240px;
-	background-image: url('http://lorempicsum.com/futurama/920/150/4');
+	/*background-image: url('http://lorempicsum.com/futurama/920/150/4');*/
 	height: 150px;
+	background-color: #fec350;
 }
 
 .social button {
 	border:none;
 	position: absolute;
-	top: 260px;
+	top: 255px;
 }
 
 .like {
@@ -176,7 +178,7 @@ content: '';
 
 .infos div {
 	padding: 8px 0 8px ;
-	
+
 }
 
 @media screen and (max-width: 700px) {
@@ -361,16 +363,6 @@ content: '';
 
     }
 
-    .visuel {
-      position: absolute;
-
-      width: 600px;
-      height: 400%;
-
-        z-index: 1;
-        opacity: 0.6;
-        background-repeat: no-repeat;
-    }
 
 
     .infos .artiste{
