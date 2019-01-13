@@ -4,8 +4,11 @@ function songSubmit(e) {
     appendAlert('eheheheeh', 4000);
 }
 
-function test() {
-    console.log(document.getElementById('form-song').elements)
+function extractFilenameNoExt (path) {
+    let filename = extractFilename(path).split('.');
+    filename.splice(filename.length - 1, 1);
+    return filename.join('');
+
 }
 
 function extractFilename(path) {
@@ -22,10 +25,9 @@ function extractFilename(path) {
     return path; // just the file name
 }
 
-function updateFilenames(elem, target) {
-    console.log(elem.value);
-    if (elem.value != "") {
-        target.innerText = extractFilename(elem.value);
-        target.value = extractFilename(elem.value);
+function updateFilenames(string, target) {
+    if (string != "") {
+        target.innerText = string;
+        target.value = string;
     }
 }
