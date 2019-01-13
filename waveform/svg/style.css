@@ -1,11 +1,17 @@
 .waveform {
     position:relative;
-    width: 800px;
-    height: 300px;
     border: solid 1px black;
     padding: 20px 20px;
 }
 
-.box {
-    background-color: orange;
+.main {
+    fill: url(#test);
+}
+
+.peak:hover {
+    fill: #000;
+}
+
+.passed {
+    fill: #000;
 }
