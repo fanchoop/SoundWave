@@ -5,13 +5,15 @@
 }
 
 .main {
-    fill: url(#test);
+    fill: url(#base);
 }
 
 .peak:hover {
-    fill: #000;
+    transform: translateY(-7px);
 }
-
+.peak {
+    transition: all 0.2s ease-out;
+}
 .passed {
-    fill: #000;
+    fill: url(#active);
 }
