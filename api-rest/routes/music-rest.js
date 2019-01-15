@@ -70,12 +70,13 @@ myRouter.route('/')
         //Fonction d'envoi dans la base de données.
         function envoi() {
             let request = {
+                idPlage : 9,
                 titre: req.body.name,
                 duree: duree,
                 nbLike: 0,
                 nbCommentaire: 0,
                 nbEcoute: 0,
-                cheminFichierJSON: words.data,
+                peaks: words.data,
                 nomAuteur: req.body.author,
                 anneePlage: req.body.date,
                 cheminPochette: '/SoundWave/api-rest/public/cover/' + newNameCover,
@@ -121,7 +122,20 @@ myRouter.route('/:id')
                 res.json(result);
             }
         })
-    })
+    });
+
+
+myRouter.route('/titre/:titre')
+    .get(function(req,res){
+        let title = new RegExp(req.params.titre);
+        musique.findByTitre({titre: { $regex : title}}, function(err, result) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(result);
+        });
+    });
+
 
 
 

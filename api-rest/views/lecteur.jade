@@ -1,11 +1,38 @@
 doctype html
 html(lang='fr')
     head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(http-equiv='X-UA-Compatible', content='ie=edge')
+        link(rel='stylesheet', media='screen and (min-width: 701px) ', href='/stylesheets/styleDesktop.css')
+        link(rel='stylesheet', media='screen and (max-width: 700px) ', href='/stylesheets/styleMobile.css')
+        title Player
     body
-        iframe(src='../../../VersionResponsive/index.html', sandbox='', width='100%', height='500')
-            | <p>
-            | <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/">
-            | Un lien à utiliser dans les cas où les navigateurs ne supportent
-            | pas les <i>iframes</i>.
-            | </a>
-            | </p>
+        #{res}.toto
+        .audioplayer
+            .visuel
+            .infos
+                .artiste Nom de l&apos;artiste
+                .titre Nom du morceau
+            .waveform Waveform
+            .controls
+                button.prev
+                button.play-pause.play
+                button.next
+                button.volume(data-value='90')
+            .temps
+                .en-cours 1:31
+                .total 3:11
+            .statistiques
+                .nb-lectures 16,5M
+                .nb-commentaires 280
+            .social
+                button.like 333K
+                button.share Partager
+
+    script(src='/javascripts/Music.js')
+    script(src='/javascripts/Playlist.js')
+    script(src='/javascripts/Player.js')
+    script(src='/javascripts/Player2.js')
+    script(src="/javascripts/script/soundmanager2.js")
+    script(src='/javascripts/Connexion.js')

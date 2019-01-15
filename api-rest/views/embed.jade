@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='Mp3 embed')
+        title Lecteur embed
+        // Custom styles for this template
+        link(rel='stylesheet', media="screen and (min-width: 600px)" href='/stylesheets/styleDesktop.css')
+        link(rel='stylesheet', media="screen and (max-width: 600px)" href='/stylesheets/styleMobile.css')
+
+
+    body
+        iframe(src='/lecteur', width='50%', height='230', frameborder="no", scrolling="no")
+
+        br
+
+        iframe(src='/lecteur', width='20%', height='400px', frameborder="no", scrolling="no")
+
+    script(src='/javascripts/Music.js')
+    script(src='/javascripts/Playlist.js')
+    script(src='/javascripts/Player.js')
+    script(src='/javascripts/script/soundmanager2.js')
+    script(src='/javascripts/Connexion.js')
+
+
+        //!{res}
+        //#{res}
+        

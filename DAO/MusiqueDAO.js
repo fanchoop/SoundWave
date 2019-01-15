@@ -29,6 +29,13 @@ var MusiqueDAO = function () {
         });
 
     };
+    this.findByTitre = function (option,callback) {
+        Mongo((db) => {
+            console.log(option);
+            db.collection('musique').find(option).toArray(callback);
+        });
+
+    };
 };
 var musique_dao = new MusiqueDAO();
 module.exports = musique_dao;
