@@ -39,7 +39,7 @@ myRouter.route('/')
             muisqueMeta.parseFile(path, {native: true})
                 .then(metadata => {
                     duree = metadata.format.duration;
-                    creatJson();
+                    creatJson(dest,readJson);
 
                 })
                 .catch(err => {
@@ -51,15 +51,15 @@ myRouter.route('/')
                 return res.status(500).send(err);
         });
 
-        function creatJson() {
+        function creatJson(dest,callback) {
             shell.exec('audiowaveform -i ' + path + ' -b 8 -z 44100 -o ' + dest);
-            setTimeout(readJson, 15000);
+            callback(dest,envoi);
         }
 
-        function readJson() {
+        function readJson(dest,callback) {
                let donnee = fs.readFileSync(dest, 'utf8');
                words=JSON.parse(donnee);
-               envoi();
+               callback(dest,delJSON);
         }
         //destruction du fichier JSON
         function delJSON() {
@@ -68,7 +68,7 @@ myRouter.route('/')
         }
 
         //Fonction d'envoi dans la base de données.
-        function envoi() {
+        function envoi(dest,callback) {
             let request = {
                 idPlage : 9,
                 titre: req.body.name,
@@ -80,14 +80,14 @@ myRouter.route('/')
                 nomAuteur: req.body.author,
                 anneePlage: req.body.date,
                 cheminPochette: '/SoundWave/api-rest/public/cover/' + newNameCover,
-                cheminMP3: path
+                cheminMP3: '/SoundWave/api-rest/public/cover/' + newNameSong
             };
             musique.insertOne(request, function (err, result) {
                 if (err) next(err);
                 else {
                     res.render('ajoutSucces');
                     console.log("Le Fichier JSON viens d'être retiré.");
-                    delJSON();
+                    callback(delJSON);
                 }
 
             })
