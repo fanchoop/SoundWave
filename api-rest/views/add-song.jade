@@ -8,7 +8,7 @@ block content
     .form-group.card-body  
       .input-group.mb-3
         .custom-file
-          label#music-label.custom-file-label(for='music-inp') Choisissez une musique (.mp3, .wav)
+          label#music-label.custom-file-label(for='music-inp') Choisissez une musique(.mp3)
           input#music-inp(type='file' required accept="audio/mp3, audio/wav" name="music" onchange="updateFilenames(extractFilename(this.value), document.getElementById('music-label'));updateFilenames(extractFilenameNoExt(this.value), document.getElementById('music-name'));")
       .input-group.mb-3
         .custom-file
