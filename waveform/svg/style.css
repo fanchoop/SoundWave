@@ -8,12 +8,13 @@
     fill: url(#base);
 }
 
+.peak {
+    transition: all .15s ease-out;
+}
 .peak:hover {
     transform: translateY(-7px);
 }
-.peak {
-    transition: all 0.2s ease-out;
-}
+
 .passed {
     fill: url(#active);
 }
