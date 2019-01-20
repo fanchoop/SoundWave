@@ -59,7 +59,7 @@ body {
     width: 400px;
     height: 150px;
     margin-left: 6px;
-    /* background-color: #F6E1F3; */
+    background-color: #F6E1F3;
 }
 
 .controls {
@@ -243,23 +243,4 @@ content: '';
     position: absolute;
     margin-left: -98px;
     top: 240px;
-}
-
-.waveform {
-  position:relative;
-}
-
-.main {
-  fill: url(#base);
-}
-
-.peak {
-  transition: all .15s ease-out;
-}
-.peak:hover {
-  transform: translateY(-7px);
-}
-
-.passed {
-  fill: url(#active);
 }
