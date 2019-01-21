@@ -24,10 +24,13 @@ var MusiqueDAO = function () {
     };
     this.findByOption = function (option,callback) {
         Mongo((db) => {
-            console.log(option);
             db.collection('musique').find(option).toArray(callback);
         });
-
+    };
+    this.findLastEntry = function (callback) {
+        Mongo((db) => {
+            db.collection('musique').find({}).sort({idPlage:-1}).limit(1).toArray(callback);
+        });
     };
     this.findByTitre = function (option,callback) {
         Mongo((db) => {
