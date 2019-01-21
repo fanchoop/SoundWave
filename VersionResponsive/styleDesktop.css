@@ -169,25 +169,3 @@ button {
         margin-left: calc(65vh + 20px);;
     }
 }
-
-
-/* SVG CSS */
-
-.waveform {
-    position:relative;
-}
-
-.main {
-    fill: url(#base);
-}
-
-.peak {
-    transition: all .15s ease-out;
-}
-.peak:hover {
-    transform: translateY(-7px);
-}
-
-.passed {
-    fill: url(#active);
-}
