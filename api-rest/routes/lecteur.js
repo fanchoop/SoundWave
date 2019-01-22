@@ -1,7 +1,11 @@
 var express = require('express');
 var myRouter = express.Router();
 let http = require('http');
-let musique = require('../../DAO').musique;
+
+myRouter.route('/embed')
+    .get(function(req, res, next) {
+        res.render('embed',{title: "Lecteur intégré sans musique."});
+    });
 
 myRouter.get('/:id', function (req, res, next) {
     let apiUrl = 'http://localhost:3000/musique/'+req.params.id;
@@ -24,8 +28,5 @@ myRouter.get('/:id', function (req, res, next) {
     });
 })
 
-myRouter.route('/embed')
-    .get(function(req, res, next) {
-        res.render('embed',{title: "Lecteur intégré sans musique."});
-    });
+
 module.exports = myRouter;

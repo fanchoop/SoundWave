@@ -29,14 +29,16 @@ html(lang='fr')
             .social
                 button.like= data.nbLike
                 button.share Partager
+    
     script.
-        let peaks = !{JSON.stringify(data.piques)};
+        let peaks = !{JSON.stringify(data.peaks)}
         let songFilePath = !{JSON.stringify(data.cheminMP3)}
         let smKey = "song";
-    script(src="/javascripts/waveform/waveform.js")
+    
+    script(type='text/javascript', src="/javascripts/utility.js")
+    script(type='text/javascript', src="/javascripts/waveform/waveform.js")
     script(type='text/javascript', src='/javascripts/soundmanager/scripts/soundmanager2-jsmin.js')
     script(type='text/javascript', src='/javascripts/sound-manager.js')
     script(type='text/javascript', src='/javascripts/lecteur-script.js')
-    script(type='text/javascript', src="/javascripts/waveform/waveform.js")
 
         

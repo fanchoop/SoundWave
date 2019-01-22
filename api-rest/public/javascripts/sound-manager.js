@@ -3,5 +3,9 @@ soundManager.onready(function() {
     soundManager.play(smKey, songFilePath);
 });
 
+soundManager.onpause(function() {
+    
+})
+
 
     

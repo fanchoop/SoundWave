@@ -62,6 +62,7 @@ button {
     width: 40px;
     /*! height: 55px; */
 }
+
 .controls .pause {
     content: '';
     background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDggMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPlBhdXNlIDI4PC90aXRsZT48cGF0aCBkPSJNNSAwdjEyaDNWMEg1ek0wIDB2MTJoM1YwSDB6IiBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
@@ -98,8 +99,8 @@ button {
 
 .controls .slider {
     background-repeat: no-repeat;
-
-    height: 25px;
+    margin-bottom: -13px;
+    height: 25px !important;
 }
 .controls button, .controls .slider {
     border-radius: 7px;

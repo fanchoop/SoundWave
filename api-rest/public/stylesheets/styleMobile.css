@@ -122,6 +122,9 @@ body {
     margin-top: 2vh;
     border:1px solid black;
 }
+.controls .slider {
+    display: none;
+}
 
 
 /* ********** Temps (en-cours,total) *************/
