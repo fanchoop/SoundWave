@@ -262,3 +262,22 @@ body {
         font-size: 0.8em;
     }
 }
+
+.waveform {
+    padding: 20px;
+}
+
+.main {
+    fill: url(#base);
+}
+
+.peak {
+    transition: all .15s ease-out;
+}
+.peak:hover {
+    transform: translateY(-7px);
+}
+
+.passed {
+    fill: url(#active);
+}

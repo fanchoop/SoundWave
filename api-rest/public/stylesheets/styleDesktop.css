@@ -170,4 +170,23 @@ button {
     }
 }
 
+.waveform {
+    padding: 20px;
+}
+
+.main {
+    fill: url(#base);
+}
+
+.peak {
+    transition: all .15s ease-out;
+}
+.peak:hover {
+    transform: translateY(-7px);
+}
+
+.passed {
+    fill: url(#active);
+}
+
 
