@@ -39,6 +39,7 @@ button {
 }
 
 .waveform {
+    padding: 20px;  
     margin-left: 20vw;
     margin-top: 4vh;
     margin-right: 8px;
@@ -171,7 +172,7 @@ button {
 }
 
 .waveform {
-    padding: 20px;
+    
 }
 
 .main {

@@ -29,7 +29,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    opacity: 0.8;
+    z-index:-1;
 
 }
 
@@ -57,11 +57,11 @@ body {
 
 /* ********** Waveform *************/
 .waveform{
+    padding: 20px;
     margin-left: 2vw;
     margin-top: 45vh;
     margin-right: 8px;
     height: 26vh;
-    background-color: black;
 }
 
 

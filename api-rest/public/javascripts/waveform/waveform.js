@@ -61,17 +61,14 @@ function drawWaveform(parent, waveformValue, peakWidth, offset) {
         let peakHeight = waveHeight * (value / maxValue);
         let peakY = baseline - peakHeight * baselinePourcentage;
 
-        let peak = document.createElementNS(svg.namespaceURI, "rect");
-        peak.setAttribute("x", peakX);
-        peak.setAttribute("y", peakY);
-        peak.setAttribute("rx", Math.floor(peakWeight / 3));
-        peak.setAttribute("width", peakWidth);
-        peak.setAttribute("height", peakHeight + delimitationHeight);
         let peakStyle = "stroke-width:" + offset / 2 + ";";
-        peakStyle += "stroke:#fff;";
-        peak.setAttribute("style", peakStyle);
-        addClass(peak, "peak");
+        peakStyle += "stroke:#000;";
+        peakStyle += "stroke-opacity:0;";
 
+        let round = Math.floor(peakWeight / 3);
+        
+        let peak = createRect(svg.namespaceURI, peakX, peakY, round, round, peakWidth, peakHeight + delimitationHeight, peakStyle)
+        addClass(peak, "peak");
         peak.addEventListener("click", onWaveClick);
         svg.appendChild(peak);
 
@@ -79,12 +76,20 @@ function drawWaveform(parent, waveformValue, peakWidth, offset) {
         i += nbValue;
     }
 
-    let delimitation = document.createElementNS(svg.namespaceURI, "rect");
-    delimitation.setAttribute("y", baseline - delimitationHeight / 2);
-    delimitation.setAttribute("width", waveWidth);
-    delimitation.setAttribute("height", delimitationHeight);
-    delimitation.setAttribute("style", "fill:#000");
+    // let delimitation = createRect(svg.namespaceURI, 0, baseline - delimitationHeight / 2, 0, 0, waveWidth, delimitationHeight, "fill:#000");
     // svg.appendChild(delimitation);
+}
+
+function createRect(uri, x, y, rx, ry, width, height, style) {
+    let rect = document.createElementNS(uri, "rect");
+    rect.setAttribute("x", x);
+    rect.setAttribute("y", y);
+    rect.setAttribute("rx", rx);
+    rect.setAttribute("ry", ry);
+    rect.setAttribute("width", width);
+    rect.setAttribute("height", height);
+    rect.setAttribute("style", style);
+    return rect;
 }
 
 /**
