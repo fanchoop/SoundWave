@@ -25,23 +25,7 @@ myRouter.get('/:id', function (req, res, next) {
 })
 
 myRouter.route('/embed')
-    .get(function (req, res, next) {
-        res.render('embed', { title: "Lecteur intégré sans musique." });
+    .get(function(req, res, next) {
+        res.render('embed',{title: "Lecteur intégré sans musique."});
     });
-
-
-
-
-/*myRouter.route('/embed/:id')
-    .get(function (req, res, next) {
-        var id = req.params.id;
-        var query = {'idPlage':Number(id)};
-        musique.findByOption(query,function (err, result) {
-            if (err) next(err);
-
-            else {
-                res.render('embed',{title: "Lecteur intégré."});
-            }
-        })
-    });*/
 module.exports = myRouter;

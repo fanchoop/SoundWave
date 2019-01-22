@@ -7,7 +7,6 @@ var url = 'mongodb://localhost:27017/'+dbName;
 MongoClient.connect(url,{ useNewUrlParser: true } , function(err, db) {
     // Get an additional db
     if (err) throw err;
-    console.log("connecté");
     toto = db.db(dbName);
     callback(toto);
 

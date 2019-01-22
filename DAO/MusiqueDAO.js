@@ -26,6 +26,14 @@ var MusiqueDAO = function () {
         Mongo((db) => {
             db.collection('musique').find(option).toArray(callback);
         });
+<<<<<<< HEAD
+=======
+    };
+    this.findLastEntry = function (callback) {
+        Mongo((db) => {
+            db.collection('musique').find({}).sort({idPlage:-1}).limit(1).toArray(callback);
+        });
+>>>>>>> 94ebc994993e90e3cc0961194a0b6e468bb38774
     };
     this.findByTitre = function (option,callback) {
         Mongo((db) => {

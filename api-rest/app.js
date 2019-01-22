@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload');
 
 var app = express();
 
+var indexRouter = require('./routes/index');
 var addSongRouter = require('./routes/add-song');
 var manageSongRouter = require('./routes/manage-song');
 var musiqueRouter = require('./routes/music-rest');
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/',indexRouter);
 app.use('/add-song', addSongRouter);
 app.use('/manage-song', manageSongRouter);
 app.use('/musique', musiqueRouter);
