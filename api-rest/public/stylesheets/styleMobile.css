@@ -263,10 +263,6 @@ body {
     }
 }
 
-.waveform {
-    padding: 20px;
-}
-
 .main {
     fill: url(#base);
 }

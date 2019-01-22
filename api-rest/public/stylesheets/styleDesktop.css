@@ -1,3 +1,5 @@
+* {box-sizing: border-box;}
+
 body {
     box-sizing: border-box;
     padding: 0;
@@ -169,10 +171,6 @@ button {
     .waveform {
         margin-left: calc(65vh + 20px);;
     }
-}
-
-.waveform {
-    
 }
 
 .main {
