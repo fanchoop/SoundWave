@@ -12,7 +12,6 @@ var manageSongRouter = require('./routes/manage-song');
 var musiqueRouter = require('./routes/music-rest');
 var lecteurRouter = require('./routes/lecteur');
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

@@ -7,31 +7,36 @@ html(lang='fr')
         link(rel='stylesheet', media='screen and (min-width: 701px) ', href='/stylesheets/styleDesktop.css')
         link(rel='stylesheet', media='screen and (max-width: 700px) ', href='/stylesheets/styleMobile.css')
         title Player
+    
     body
         .audioplayer
             .visuel
             .infos
-                .artiste Nom de l&apos;artiste
-                .titre Nom du morceau
-            .waveform Waveform
+                .artiste= data.nomAuteur
+                .titre= data.titre
+            .waveform
             .controls
                 button.prev
                 button.play-pause.play
                 button.next
                 button.volume(data-value='90')
             .temps
-                .en-cours 1:31
-                .total 3:11
+                .en-cours 0:00
+                .total= data.duree
             .statistiques
-                .nb-lectures 16,5M
-                .nb-commentaires 280
+                .nb-lectures= data.nbEcoute
+                .nb-commentaires= data.nbCommentaire
             .social
-                button.like 333K
+                button.like= data.nbLike
                 button.share Partager
+    script.
+        let peaks = !{JSON.stringify(data.piques)};
+    script(src="/javascripts/waveform/waveform.js")
 
-    script(src='/javascripts/Music.js')
-    script(src='/javascripts/Playlist.js')
-    script(src='/javascripts/Player.js')
-    script(src='/javascripts/Player2.js')
-    script(src="/javascripts/script/soundmanager2.js")
-    script(src='/javascripts/Connexion.js')
+    script(type='text/javascript', src='/javascripts/soundmanager/scripts/soundmanager2-jsmin.js')
+    script.
+        soundManager.url = '/javascripts/soundmanager/swf/';
+        soundManager.onready(function() {
+            soundManager.play('premier_son',!{JSON.stringify(data.cheminMP3)});
+        });
+    

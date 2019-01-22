@@ -129,15 +129,13 @@ myRouter.route('/:id')
         });
     })
     .get(function (req, res, next) {
-        var id = req.params.id;
-        var query = {'idPlage':Number(id)};
+        let query = {"idPlage": Number(req.params.id)};
         musique.findByOption(query,function (err, result) {
             if (err) next(err);
-
             else {
                 res.json(result);
             }
-        })
+        });
     });
 
 

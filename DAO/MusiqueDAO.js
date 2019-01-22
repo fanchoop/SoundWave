@@ -24,17 +24,13 @@ var MusiqueDAO = function () {
     };
     this.findByOption = function (option,callback) {
         Mongo((db) => {
-            console.log(option);
             db.collection('musique').find(option).toArray(callback);
         });
-
     };
     this.findByTitre = function (option,callback) {
         Mongo((db) => {
-            console.log(option);
             db.collection('musique').find(option).toArray(callback);
         });
-
     };
 };
 var musique_dao = new MusiqueDAO();

@@ -10,10 +10,6 @@ pour faire fonctionner l'api REST il faut un serveur local mongodb:
 le jeu de test se situe dans le fichier data.json
 
 pour importer le jeu de test il faut éxecuter la commande suivante  
-Windows  
-> mongoimport.exe --db soundwave --collection musique --drop --file data.json
-
-sur linux  
 > mongoimport --db soundwave --collection musique --drop --file data.json
 
 note :
