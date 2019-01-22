@@ -31,12 +31,12 @@ html(lang='fr')
                 button.share Partager
     script.
         let peaks = !{JSON.stringify(data.piques)};
+        let songFilePath = !{JSON.stringify(data.cheminMP3)}
+        let smKey = "song";
     script(src="/javascripts/waveform/waveform.js")
-
     script(type='text/javascript', src='/javascripts/soundmanager/scripts/soundmanager2-jsmin.js')
-    script.
-        soundManager.url = '/javascripts/soundmanager/swf/';
-        soundManager.onready(function() {
-            soundManager.play('premier_son',!{JSON.stringify(data.cheminMP3)});
-        });
-    
+    script(type='text/javascript', src='/javascripts/sound-manager.js')
+    script(type='text/javascript', src='/javascripts/lecteur-script.js')
+    script(type='text/javascript', src="/javascripts/waveform/waveform.js")
+
+        

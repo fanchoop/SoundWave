@@ -95,7 +95,13 @@ button {
     width: 35px;
     height: 25px;
 }
-.controls button {
+
+.controls .slider {
+    background-repeat: no-repeat;
+
+    height: 25px;
+}
+.controls button, .controls .slider {
     border-radius: 7px;
     height: 40px;
     border: none;
@@ -153,6 +159,7 @@ button {
 .temps .total {
     padding-left: 20px;
 }
+
 
 @media screen and (max-height: 410px) {
     .temps {
