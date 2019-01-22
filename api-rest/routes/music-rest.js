@@ -30,7 +30,7 @@ myRouter.route('/')
         let verification1 = regex.exec(req.files.music.name)[1];
         let verification2 = regex.exec(req.files.cover.name)[1];
 
-        if (verification1 ==='mp3' && verification2 ==='jpg' | verification2 ==='jpeg') {
+        if (verification1 ==='mp3' && verification2 ==='jpg' || verification2 ==='jpeg') {
 
 
             //Modification des nom des fichiers pour remplacer les espace par des tirets
