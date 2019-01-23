@@ -22,12 +22,12 @@ body {
 /* ********** Visuel *************/
 .visuel {
     position: absolute;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    z-index:-1;
+    z-index: -1;
 
 }
 
@@ -65,7 +65,7 @@ body {
 
 /* ********** Control (play,pause,prev,next) *************/
 .controls {
-    position:absolute;
+    position: absolute;
     margin-top: 80vh;
     display: flex;
 }
@@ -86,7 +86,7 @@ body {
     width: 17vw;
     height: 10vh;
     margin-left: 3vw;
-    border:1px solid black;
+    border: 1px solid black;
 }
 .controls .pause {
     content: '';
@@ -96,7 +96,7 @@ body {
     width: 17vw;
     height: 10vh;
     margin-left: 3vw;
-    border:1px solid black;
+    border: 1px solid black;
 }
 .controls .prev {
     content: '';
@@ -107,7 +107,7 @@ body {
     height: 6vh;
     margin-left: 25vw;
     margin-top: 2vh;
-    border:1px solid black;
+    border: 1px solid black;
 }
 .controls .next {
     content: '';
@@ -118,7 +118,7 @@ body {
     height: 6vh;
     margin-left: 3vw;
     margin-top: 2vh;
-    border:1px solid black;
+    border: 1px solid black;
 }
 .controls .slider {
     display: none;
@@ -201,8 +201,6 @@ body {
     width: 17vw;
     height: 4vh;
     background-color: #f96d00;
-    background-repeat: no-repeat;
-    background-position: center;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -211,7 +209,7 @@ body {
     background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+c3RhdHNfbGlrZXNfZ3JleTwvdGl0bGU+PHBhdGggZD0iTTEwLjgwNSAzYy0yLjAyIDAtMi44MDQgMi4zNDUtMi44MDQgMi4zNDVTNy4yMTMgMyA1LjE5NiAzQzMuNDk0IDMgMS43NDggNC4wOTYgMi4wMyA2LjUxNGMuMzQ0IDIuOTUzIDUuNzI1IDYuNDc5IDUuOTYzIDYuNDg3LjIzOC4wMDggNS43MzgtMy43MjIgNS45ODgtNi41QzE0LjE4OCA0LjIwMSAxMi41MDcgMyAxMC44MDUgM3oiIGZpbGw9IiMyMjIiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
     background-repeat: no-repeat;
     background-position: left;
-    border:1px solid black;
+    border: 1px solid black;
 }
 .social .like::after{
     background-color: black;
@@ -229,7 +227,7 @@ body {
     font-size: 0.7em;
     border-radius: 7px;
     margin-left: 3vw;
-    border:1px solid black;
+    border: 1px solid black;
 }
 
 /* ********** Volume *************/

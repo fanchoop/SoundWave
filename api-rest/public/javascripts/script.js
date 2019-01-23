@@ -18,7 +18,6 @@ function appendAlert(msg, timeout) {
 
     alert.appendChild(cross);
     document.body.appendChild(alert);
-    
     window.setTimeout(function() {
         alert.classList.add('masking');
     }, timeout*0.34);

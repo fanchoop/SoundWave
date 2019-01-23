@@ -1,5 +1,5 @@
 var Mongo = require("./Connection");
-var MusiqueDAO = function () {
+var musiqueDAO = function () {
 
     this.insertOne = function (option,callback) {
         Mongo((db) => {
@@ -14,8 +14,8 @@ var MusiqueDAO = function () {
     this.updateIncrement = function (option, newvalues, callback) {
         Mongo((db)=> {
             db.collection('musique').updateOne(option, {$inc:newvalues}, {}, callback);
-        })
-    }
+        });
+    };
     this.deleteOne = function (option,callback) {
         Mongo((db) => {
             db.collection('musique').deleteOne(option,{},callback);
@@ -43,6 +43,6 @@ var MusiqueDAO = function () {
         });
     };
 };
-var musique_dao = new MusiqueDAO();
+var musique_dao = new musiqueDAO();
 module.exports = musique_dao;
 

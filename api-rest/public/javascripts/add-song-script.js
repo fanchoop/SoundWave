@@ -1,7 +1,5 @@
 function songSubmit(e) {
     e.preventDefautlt();
-    console.log('submit');
-    appendAlert('eheheheeh', 4000);
 }
 
 function extractFilenameNoExt (path) {
@@ -12,7 +10,7 @@ function extractFilenameNoExt (path) {
 }
 
 function extractFilename(path) {
-    if (path.substr(0, 12) == "C:\\fakepath\\") return path.substr(12); // modern browser
+    if (path.substr(0, 12) === "C:\\fakepath\\") return path.substr(12); // modern browser
     let x;
     x = path.lastIndexOf("/");
     if (x >= 0)
@@ -22,11 +20,11 @@ function extractFilename(path) {
     if (x >= 0)
         // Windows-based path
         return path.substr(x + 1);
-    return path; // just the file name
+    return path; /* just the file name*/
 }
 
 function updateFilenames(string, target) {
-    if (string != "") {
+    if (string !== "") {
         target.innerText = string;
         target.value = string;
     }

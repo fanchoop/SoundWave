@@ -2,7 +2,7 @@ var express = require('express');
 var myRouter = express.Router();
 let http = require('http');
 myRouter.route('/embed')
-    .get(function(req, res, next) {
+    .get(function(req, res) {
         res.render('embed',{title: "Lecteur intégré sans musique."});
     });
 
@@ -19,14 +19,14 @@ myRouter.get('/:id', function (req, res, next) {
         resp.on("end", function (err) {
             if (err) next(err);
             let result = JSON.parse(buffer)[0];
-            if (result != undefined) {
+            if (result !== undefined) {
                 res.render('lecteur', {data : JSON.parse(buffer)[0]});
             } else {
                 next(new Error(404));
             }
         });
     });
-})
+});
 
 
 module.exports = myRouter;

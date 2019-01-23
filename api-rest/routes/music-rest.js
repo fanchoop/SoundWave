@@ -45,21 +45,23 @@ myRouter
             if(req.body.id === undefined) {
                 musique.findLastEntry(function (err, result) {
                     if (err) next(err);
-                    idPlage = result[0].idPlage;
-                    idPlage++;
+                    if(result[0]) {
+                        idPlage = result[0].idPlage;
+                        idPlage++;
+                    }else {
+                        idPlage = 1;
+                    }
                 });
             } else {
                 var idDel = req.body.id;
                 var queryDel = {idPlage: Number(idDel)};
-                musique.deleteOne(queryDel,function (err,result) {
+                musique.deleteOne(queryDel,function (err) {
                     if (err) next(err);
                     else {
                         idPlage = Number(req.body.id);
                     }
                 });
-                
             }
-            
             //Chemin d'entrée et de sortie pour la commande audioWaveform
             let path = "../api-rest/public/songs/" + newNameSong;
             let dest = "../api-rest/public/songData/" + newNameSongNoExt + ".json";
@@ -73,7 +75,7 @@ myRouter
                         creatJson(dest, readJson);
                     })
                     .catch(err => {
-                        console.log(err.message);
+                        next(err);
                     });
             });
             // Les fichiers sont déplacé dans un autre dossier sur le serveur.
@@ -113,7 +115,7 @@ myRouter
                     cheminPochette: '/cover/' + newNameCover,
                     cheminMP3: '/songs/' + newNameSong
                 };
-                musique.insertOne(request, function(err, result) {
+                musique.insertOne(request, function(err) {
                     if (err) next(err);
                     else {
                         res.redirect('manage-song');
@@ -133,14 +135,14 @@ myRouter
     .put(function(req, res, next) {
         var id = req.params.id;
         var query = { idPlage: Number(id) };
-        musique.updateOne(query, req.body, function(err, result) {
+        musique.updateOne(query, req.body, function(err) {
             if (err) next(err);
             else {
                 res.redirect('manage-song');
             }
         });
     })
-    
+
     //Récupération d'une plage via son id
     .get(function(req, res, next) {
         let query = { idPlage: Number(req.params.id) };
@@ -156,10 +158,10 @@ myRouter.route('/del/:id')
     .get(function(req,res,next){
         var id = req.params.id;
         var query = {idPlage: Number(id)};
-        musique.deleteOne(query,function (err,result) {
+        musique.deleteOne(query,function (err) {
             if (err) next(err);
-            res.redirect('/manage-song')
-        })
+            res.redirect('/manage-song');
+        });
     });
 myRouter.route('/mod/:id')
     .get(function(req,res,next){
@@ -167,12 +169,10 @@ myRouter.route('/mod/:id')
         var query = {idPlage: Number(id)};
         musique.findByOption(query,function (err,result) {
             if (err) next(err);
-            res.render("add-song-modifie",{titre: "Modifier une musique",data:result})
-    
+            res.render("add-song-modifie",{titre: "Modifier une musique",data:result});
         });
-    
     });
-
+    
 //Récupération d'une plage via son Titre
 myRouter.route("/titre/:titre").get(function(req, res) {
     let title = new RegExp(req.params.titre);

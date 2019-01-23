@@ -6,4 +6,4 @@ let Song = function(idPlage, duree, peaks, cheminCover, cheminMP3) {
     this.cheminMP3 = cheminMP3;
     this.smId = "s" + idPlage;
     this.liked = false;
-}
+};

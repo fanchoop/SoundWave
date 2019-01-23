@@ -11,6 +11,8 @@ le jeu de test se situe dans le fichier data.json
 
 pour importer le jeu de test il faut éxecuter la commande suivante  
 > mongoimport --db soundwave --collection musique --drop --file data.json
+Pour les playlist :
+> mongoimport --db soundwave --collection playlist --drop --file playlist.json
 
 note :
 - il faut éxecuter cette commande depuis la racine du projet

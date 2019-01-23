@@ -1,4 +1,4 @@
-function Playlist() {
+function playlist() {
     this.positionCourante = 0;
     this.musiqueCourante = null;
     this.list = [];
