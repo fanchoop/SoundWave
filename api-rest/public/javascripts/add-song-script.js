@@ -1,6 +1,5 @@
 function songSubmit(e) {
     e.preventDefautlt();
-    console.log('submit');
     appendAlert('eheheheeh', 4000);
 }
 

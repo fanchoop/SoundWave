@@ -45,8 +45,13 @@ myRouter
             if(req.body.id === undefined) {
                 musique.findLastEntry(function (err, result) {
                     if (err) next(err);
-                    idPlage = result[0].idPlage;
-                    idPlage++;
+                    if(result[0]) {
+                        idPlage = result[0].idPlage;
+                        idPlage++;
+                    }else {
+                        idPlage = 1
+                    }
+                    
                 });
             } else {
                 var idDel = req.body.id;
@@ -73,7 +78,7 @@ myRouter
                         creatJson(dest, readJson);
                     })
                     .catch(err => {
-                        console.log(err.message);
+                        next(err);
                     });
             });
             // Les fichiers sont déplacé dans un autre dossier sur le serveur.
