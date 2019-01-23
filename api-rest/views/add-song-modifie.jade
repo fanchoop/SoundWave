@@ -3,7 +3,7 @@ extends layout
 
 block content
     script(src="/javascripts/add-song-script.js")
-    h3(style="margin-left: 5px;") Ajout d'une musique
+    h3(style="margin-left: 5px;") Modification d'une musique
     for prop in data
         form#form-song(action='/musique' method="post" enctype="multipart/form-data")
         
