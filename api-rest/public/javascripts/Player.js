@@ -1,65 +1,116 @@
-function Player () {
-    //Permet de récuperer le paramètre Get
+let Player = function () {
+    this.pauseButton = document.querySelector(".play");
+    this.volumeButton = document.querySelector(".volume");
+    this.svg = document.querySelector("svg");
+    this.sliderTimeout;
+}
 
-    function $_GET(param) {
-        var vars = {};
-        window.location.href.replace( location.hash, '' ).replace(
-            /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-            function( m, key, value ) { // callback
-                vars[key] = value !== undefined ? value : '';
+let player = new Player();
+
+Player.prototype.createWaveform = function () {
+    this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 7, 1, util.peaks);
+    this.waveform.draw();
+    this.appendOnClickListeners();
+}
+
+Player.prototype.appendOnClickListeners = function () {
+    let firstRect = document.querySelector("svg > rect");
+    while (firstRect != null) {
+        firstRect.addEventListener("click", function(e){
+            player.onWaveClick(e);
+        }); 
+        firstRect = firstRect.nextElementSibling;
+    }   
+}
+
+Player.prototype.redraw = function () {
+    this.waveform.draw();
+    this.appendOnClickListeners();
+}
+
+Player.prototype.toggleSlider = function(e) {
+    let slider = document.querySelector(".slider"); 
+    if (!slider) {
+        slider = document.createElement("input");
+        slider.setAttribute("type", "range");
+        slider.setAttribute("min", 0);
+        slider.setAttribute("max", 100);
+        slider.setAttribute("class", "slider");
+        slider.value = this.volumeButton.getAttribute("data-value");
+
+        slider.addEventListener("mouseout", function(e) {
+            player.sliderTimeout = setTimeout(function() {
+                e.target.parentElement.removeChild(slider);
+            }, 1000);
+        });
+        
+        slider.addEventListener("mouseenter", function(e) {
+                clearTimeout(player.sliderTimeout);
+        });
+        
+        slider.addEventListener("change", function(e){
+            player.volumeButton.setAttribute("data-value", e.target.value);
+            soundManager.setVolume(e.target.value);
+        });
+
+        e.currentTarget.parentElement.appendChild(slider);
+    } else {
+        e.currentTarget.parentElement.removeChild(slider);
+        clearTimeout(player.sliderTimeout);
+    }
+}
+
+Player.prototype.setSoundManagerPosition = function (rect) {
+    let x = parseFloat(rect.getAttribute("x"));
+    let currentTime = util.getTimeFromX(x);
+    soundManager.setPosition(util.songId, currentTime * 1000);
+}
+
+/**
+ * Gere le clic de l'utilisateur sur un rectangle de la waveform
+ * @param {Event} e
+ */
+Player.prototype.onWaveClick = function (e) {
+    let currentPeak = util.findCurrentPeak();
+    //fait reculer la coloration
+    this.setSoundManagerPosition(e.target);
+    util.clearTimeouts(this.waveform.timeouts);
+    this.waveform.timeouts = [];
+
+    if (this.waveform.searchLeft(currentPeak, e.target)) {
+        this.waveform.spreadChange(currentPeak, 0, 5,
+            function (current) {
+                util.removeClassSvg(current, "passed");
+            },
+            function (current) {
+                return (current.previousElementSibling != e.target) ? current.previousElementSibling : null;
             }
         );
-        if ( param ) {
-            return vars[param] ? vars[param] : null;
-        }
-        return vars;
+        //fait avancer la coloration
+    } else {
+        this.waveform.spreadChange(currentPeak, 0, 5,
+            function (current) {
+                util.addClassSvg(current, "passed");
+            },
+            function (current) {
+                return (current.nextElementSibling != e.target.nextElementSibling) ? current.nextElementSibling : null;
+            }
+        );
+        
     }
-    this.str_pad_left = function(string,pad,length) {
-        return (new Array(length+1).join(pad)+string).slice(-length);
-    };
-    this.tempsEnSeconde = function(duree){
-        let minutes = Math.floor(duree / 60);
-        let seconds = duree - minutes * 60;
-        return minutes + ":" + this.str_pad_left(seconds,'0',2);
-    };
-    var idMorceau = $_GET('morceau'),
-        musique;
-
-    Connexion.getMusiqueById(idMorceau, function (music) {
-        musique = new Music(JSON.parse(music));
-    }.bind(this));
-    console.log("toto");
-    console.log(musique);
-
-
-    var soundPlaying; // On le déclare avant, histoire qu'il soit une variable globale.
-    soundManager.onload = function() {
-        soundPlaying = soundManager.createSound(
-            {
-                id : "premier_son",
-                url : "musique/son.mp3" // Attention pas de virgule ici !
-            });
-        soundPlaying.play();
-    }
-
-
-
-    this.displayInfo = function () {
-        console.log("IXI");
-        let currentMusic = newMusique;//this.Playlist.getMusiqueCourante();
-       /* if (currentMusic != null) {
-            document.querySelector(".audioplayer .visuel").style.background = "url(" + currentMusic.cheminPochette + ")";
-            document.querySelector(".audioplayer .artiste").innerText = currentMusic.nomAuteur;
-            document.querySelector(".audioplayer .titre").innerText = currentMusic.titre;
-            document.querySelector(".audioplayer .total").innerText = this.tempsEnSeconde(currentMusic.duree);
-            document.querySelector(".audioplayer .nb-lectures").innerText = currentMusic.nbEcoute;
-            document.querySelector(".audioplayer .nb-commentaires").innerText = currentMusic.nbCommentaire;
-            document.querySelector(".audioplayer .like").innerText = currentMusic.nbJaime;
-        }*/
-    };
-
-    constructor();
 }
-console.log("toto");
+
+Player.prototype.setMaxDuree = function (duree) {
+    document.querySelector('.total').innerText = duree;
+}
+
+
+
+Player.prototype.setDuree = function (duree) {
+    document.querySelector(".en-cours").innerText = duree;
+}
+
+//affichage de la waveform
+
 
 

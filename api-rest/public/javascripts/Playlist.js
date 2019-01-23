@@ -2,8 +2,8 @@ function Playlist() {
     this.positionCourante = 0;
     this.musiqueCourante = null;
     this.list = [];
-
 }
+
 Playlist.prototype.ajouterMusique = function(musique) {
     this.list.push(musique);
 };

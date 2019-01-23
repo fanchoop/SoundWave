@@ -7,7 +7,7 @@ body {
     line-height: 1.4;
     font-family: Verdana, sans-serif;
 }
-button {
+button{
     margin: 2px;
 }
 .audioplayer {
@@ -60,7 +60,6 @@ button {
     background-position: center;
     background-size: 12px 18px;
     width: 40px;
-    /*! height: 55px; */
 }
 
 .controls .pause {
@@ -69,8 +68,7 @@ button {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 12px 18px;
-    width: 35px;
-    height: 35px;
+    width: 40px;
 }
 .controls .prev {
     content: '';
@@ -98,11 +96,11 @@ button {
 }
 
 .controls .slider {
-    background-repeat: no-repeat;
     margin-bottom: -13px;
     height: 25px !important;
 }
-.controls button, .controls .slider {
+
+.controls button, .controls input {
     border-radius: 7px;
     height: 40px;
     border: none;

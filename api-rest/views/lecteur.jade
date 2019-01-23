@@ -24,20 +24,27 @@ html(lang='fr')
                 .en-cours 0:00
                 .total= data.duree
             .statistiques
-                .nb-lectures= data.nbEcoute
-                .nb-commentaires= data.nbCommentaire
+                .nb-lectures= data.nbEcoute + " vues"
+                .nb-commentaires= data.nbCommentaire + " commentaires"
             .social
-                button.like= data.nbLike
+                button.like= data.nbLike + " J'aime"
                 button.share Partager
     
+    //- obligation de déclarer les variables dans un script inline
     script.
-        let peaks = !{JSON.stringify(data.peaks)}
-        let songFilePath = !{JSON.stringify(data.cheminMP3)}
-        let smKey = "song";
+        let Utility = function() {
+            this.idPlage = !{JSON.stringify(data.idPlage)};
+            this.duree = !{JSON.stringify(data.duree)};
+            this.peaks = !{JSON.stringify(data.peaks)};
+            this.cheminPochette = !{JSON.stringify(data.cheminPochette)};
+            this.cheminMP3 = !{JSON.stringify(data.cheminMP3)};
+            this.songId = "song";
+        }
     
+    script(type='text/javascript', src='/javascripts/soundmanager/scripts/soundmanager2-jsmin.js')
     script(type='text/javascript', src="/javascripts/utility.js")
     script(type='text/javascript', src="/javascripts/waveform/waveform.js")
-    script(type='text/javascript', src='/javascripts/soundmanager/scripts/soundmanager2-jsmin.js')
+    script(type='text/javascript', src="/javascripts/player.js")
     script(type='text/javascript', src='/javascripts/sound-manager.js')
     script(type='text/javascript', src='/javascripts/lecteur-script.js')
 

@@ -16,7 +16,6 @@ body {
     position: relative;
     height: 100vh;
     width: 100vw;
-    z-index: -2;
     overflow: hidden;
 }
 
@@ -273,6 +272,7 @@ body {
 .peak {
     transition: all .15s ease-out;
 }
+
 .peak:hover {
     transform: translateY(-7px);
 }
