@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-var callback = () => (toto), toto;
+var callback = () => (monDbName), monDbName;
 const dbName = 'soundwave';
 // Connection url
 var url = 'mongodb://localhost:27017/'+dbName;
@@ -7,14 +7,14 @@ var url = 'mongodb://localhost:27017/'+dbName;
 MongoClient.connect(url,{ useNewUrlParser: true } , function(err, db) {
     // Get an additional db
     if (err) throw err;
-    toto = db.db(dbName);
-    callback(toto);
+    monDbName = db.db(dbName);
+    callback(monDbName);
 
 });
 
 module.exports = function (callbackParam) {
-    if (typeof toto != 'undefined') {
-        callbackParam(toto);
+    if (typeof monDbName != 'undefined') {
+        callbackParam(monDbName);
     }
     else {
         callback = callbackParam;

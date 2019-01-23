@@ -94,8 +94,8 @@ myRouter
                     peaks: words.data,
                     nomAuteur: req.body.author,
                     anneePlage: req.body.date,
-                    cheminPochette: "/SoundWave/api-rest/public/cover/" + newNameCover,
-                    cheminMP3: "/SoundWave/api-rest/public/songs/" + newNameSong,
+                    cheminPochette: "/cover/" + newNameCover,
+                    cheminMP3: "/songs/" + newNameSong,
                 };
                 musique.insertOne(request, function(err, result) {
                     if (err) next(err);
