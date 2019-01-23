@@ -21,7 +21,6 @@ player.comButton.addEventListener("click", function(e) {
 
 
 
-
 // gestion du son
 player.volumeButton.addEventListener("click", function(e) {
     player.toggleSlider(e)

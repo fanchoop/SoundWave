@@ -15,7 +15,6 @@ soundManager.onready(function() {
             util.addClass(player.pauseButton ,'pause');
             util.removeClass(player.pauseButton,'play');
             player.waveform.reset();
-
         },
         onfinish: function() {
             util.addClass(player.pauseButton ,'play');

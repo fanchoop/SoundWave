@@ -117,6 +117,9 @@ Utility.prototype.getXFromTime = function (time) {
 Utility.prototype.getTimeFromX = function (x) {
 
     let svg = document.querySelector("svg");
+    console.log(x);
+    console.log(svg.getBoundingClientRect().width);
+    console.log(song.duree);
     console.log((x/svg.getBoundingClientRect().width) * song.duree);
     return (x/svg.getBoundingClientRect().width) * song.duree;    
 }

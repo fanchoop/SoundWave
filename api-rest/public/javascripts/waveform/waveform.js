@@ -35,7 +35,7 @@ Waveform.prototype.draw = function () {
 
     let maxValue = util.findMaxAbs(this.peaks); // recherche de la plus grand valeur possible elle servira de référence pour les autres
 
-    // let delimitationHeight = 3;
+    let delimitationHeight = 6;
 
     let peakX = 0;
     let i = 0;
@@ -54,7 +54,7 @@ Waveform.prototype.draw = function () {
 
         let round = Math.floor(this.peakWidth / 3);
         
-        let peak = util.createRectSvg(peakX, peakY, round, round, this.peakWidth, peakHeight /*+ delimitationHeight*/, peakStyle)
+        let peak = util.createRectSvg(peakX, peakY, round, round, this.peakWidth, peakHeight + (delimitationHeight /2), peakStyle)
         util.addClassSvg(peak, "peak");
         svg.appendChild(peak);
 
@@ -62,8 +62,8 @@ Waveform.prototype.draw = function () {
         i += nbValue;
     }
 
-    // let delimitation = util.createRectSvg(0, baseline - delimitationHeight / 2, 0, 0, waveWidth, delimitationHeight, "fill:#000");
-    // svg.appendChild(delimitation);
+    let delimitation = util.createRectSvg(0, baseline - delimitationHeight / 2, 0, 0, waveWidth, delimitationHeight, "fill:#fff");
+    svg.appendChild(delimitation);
 }
 
 Waveform.prototype.redraw = function () {
@@ -131,21 +131,19 @@ Waveform.prototype.createGradients = function (svg) {
     let baseGradient = document.createElementNS(util.svgURI, "linearGradient");
     baseGradient.setAttribute("id", "base");
     baseGradient.setAttribute("x1", "0%");
-    baseGradient.setAttribute("y1", "100%");
+    baseGradient.setAttribute("y1", "0%");
     baseGradient.setAttribute("x2", "0%");
-    baseGradient.setAttribute("y2", "0%");
-
-    let pourcent = (1 - this.baselinePourcentage) * 100;
+    baseGradient.setAttribute("y2", "100%");
 
     let stops = [{
-        offset: "0%",
-        style: "stop-color:rgb(150,150,150);stop-opacity:1"
-    }, {
-        offset: pourcent + "%",
-        style: "stop-color:rgb(0,0,0);stop-opacity:0.8"
-    }, {
-        offset: "70%",
-        style: "stop-color:#ffc04a;stop-opacity:1"
+        offset: "30%",
+        style: "stop-color:#bbb;stop-opacity:1"
+    },{
+        offset: this.baselinePourcentage*100+ "%",
+        style: "stop-color:#888;stop-opacity:1"
+    },{
+        offset: this.baselinePourcentage*100 + 1 + "%",
+        style: "stop-color:#666;stop-opacity:1"
     }];
 
     for (let i = 0; i < stops.length; i++) {
@@ -158,19 +156,19 @@ Waveform.prototype.createGradients = function (svg) {
     let activeGradient = document.createElementNS(util.svgURI, "linearGradient");
     activeGradient.setAttribute("id", "active");
     activeGradient.setAttribute("x1", "0%");
-    activeGradient.setAttribute("y1", "100%");
+    activeGradient.setAttribute("y1", "0%");
     activeGradient.setAttribute("x2", "0%");
-    activeGradient.setAttribute("y2", "0%");
+    activeGradient.setAttribute("y2", "100%");
 
     let stopsActive = [{
-        offset: "0%",
-        style: "stop-color:rgb(150,150,150);stop-opacity:1"
-    }, {
-        offset: pourcent + "%",
-        style: "stop-color:rgb(0,0,0);stop-opacity:0.8"
-    }, {
-        offset: "70%",
+        offset: "30%",
         style: "stop-color:#FF7D03;stop-opacity:1"
+    }, {
+        offset: this.baselinePourcentage*100 + "%",
+        style: "stop-color:#000;stop-opacity:0.8"
+    }, {
+        offset: "80%",
+        style: "stop-color:rgb(150,150,150);stop-opacity:1"
     }];
 
     for (let i = 0; i < stopsActive.length; i++) {

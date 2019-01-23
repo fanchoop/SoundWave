@@ -3,6 +3,7 @@ let Player = function () {
     this.volumeButton = document.querySelector(".audioplayer > .controls > .volume");
     this.svg = document.querySelector(".audioplayer > svg");
     this.likeButton = document.querySelector(".audioplayer > .social > .like");
+    this.shareDisplay = document.querySelector(".audioplayer > .social > .share");
     this.comButton = document.querySelector(".audioplayer > .statistiques > .nb-commentaires");
     this.viewDisplay = document.querySelector(".audioplayer > .statistiques > .nb-lectures");
     this.sliderTimeout;
@@ -11,7 +12,7 @@ let Player = function () {
 let player = new Player();
 
 Player.prototype.createWaveform = function () {
-    this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 7, 1, song.peaks);
+    this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 5, 1, song.peaks);
     this.waveform.draw();
     this.appendOnClickListeners();
 }
@@ -76,7 +77,7 @@ Player.prototype.setSoundManagerPosition = function (rect) {
 Player.prototype.onWaveClick = function (e) {
     let currentPeak = util.findCurrentPeak();
     //fait reculer la coloration
-    this.setSoundManagerPosition(e.target);
+    this.setSoundManagerPosition(e.currentTarget);
     util.clearTimeouts(this.waveform.timeouts);
     this.waveform.timeouts = [];
 
@@ -99,7 +100,6 @@ Player.prototype.onWaveClick = function (e) {
                 return (current.nextElementSibling != e.target.nextElementSibling) ? current.nextElementSibling : null;
             }
         );
-
     }
 }
 
@@ -153,6 +153,10 @@ Player.prototype.addView = function () {
             player.viewDisplay.innerText = parseInt(player.viewDisplay.innerText) + 1;
         }
     });
-}
+};
+
+    // alert ('<iframe src="http://localhost:3000/lecteur/'+song.idPlage+'" width="100%" height="400px" frameborder="no" scrolling="no"></iframe>');
+
+
 
 
