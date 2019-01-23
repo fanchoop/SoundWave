@@ -1,26 +1,26 @@
-var express = require('express');
+var express = require("express");
 var myRouter = express.Router();
-let musique = require('../../DAO').musique;
-var muisqueMeta = require('music-metadata');
+let musique = require("../../DAO").musique;
+var muisqueMeta = require("music-metadata");
 var duree;
-var shell = require('shelljs');
-var fs = require('fs');
+var shell = require("shelljs");
+var fs = require("fs");
 var words;
 var requestResult = 0;
 /* Affichage des résultats de la requête findAll faite à la base de données */
-myRouter.route('/')
-    .get(function (req, res, next) {
-        musique.findAll(function (err, result) {
+myRouter
+    .route("/")
+    .get(function(req, res, next) {
+        musique.findAll(function(err, result) {
             if (err) next(err);
-
             else {
                 res.json(result);
             }
-        })
+        });
     })
 
     /* Envoi des données saisie dans le formulaire d'ajout des musique */
-    .post(function (req, res, next) {
+    .post(function(req, res, next) {
         //Recupération des fichiers envoyée par le formulaire
         let mp3 = req.files.music;
         let cover = req.files.cover;
@@ -30,64 +30,56 @@ myRouter.route('/')
         let verification1 = regex.exec(req.files.music.name)[1];
         let verification2 = regex.exec(req.files.cover.name)[1];
 
-        if (verification1 ==='mp3' && verification2 ==='jpg' || verification2 ==='jpeg') {
-
-
+        if ((verification1 === "mp3" && verification2 === "jpg") || verification2 === "jpeg") {
             //Modification des nom des fichiers pour remplacer les espace par des tirets
-            let songwithoutSpace = req.files.music.name.replace(/\s+/g, '-').toLowerCase();
-            let newNameSongNoExtNoSPace = req.body.name.replace(/\s+/g, '-').toLowerCase();
+            let songwithoutSpace = req.files.music.name.replace(/\s+/g, "-").toLowerCase();
+            let newNameSongNoExtNoSPace = req.body.name.replace(/\s+/g, "-").toLowerCase();
 
             //Remove des éléments qui sont dans les parenthèses.
-            var newNameSong = songwithoutSpace.replace(/\(.[^(]*\)/g, '');
-            let newNameSongNoExt = newNameSongNoExtNoSPace.replace(/\(.[^(]*\)/g, '');
-            let newNameCover = req.files.cover.name.replace(/\s+/g, '-').toLowerCase();
-            musique.findLastEntry(function (err, result) {
+            var newNameSong = songwithoutSpace.replace(/\(.[^(]*\)/g, "");
+            let newNameSongNoExt = newNameSongNoExtNoSPace.replace(/\(.[^(]*\)/g, "");
+            let newNameCover = req.files.cover.name.replace(/\s+/g, "-").toLowerCase();
+            musique.findLastEntry(function(err, result) {
                 if (err) next(err);
-                console.log(result);
                 requestResult = result[0].idPlage;
-                console.log(requestResult + ' AVANT');
                 requestResult++;
-                console.log(requestResult + ' Apres');
             });
             //Chemin d'entrée et de sortie pour la commande audioWaveform
             let path = "../api-rest/public/songs/" + newNameSong;
             let dest = "../api-rest/public/songData/" + newNameSongNoExt + ".json";
-            mp3.mv(path, function (err) {
-                if (err)
-                    return res.status(500).send(err);
+            mp3.mv(path, function(err) {
+                if (err) return res.status(500).send(err);
                 // recuperation des metadata
-                muisqueMeta.parseFile(path, {native: true})
+                muisqueMeta
+                    .parseFile(path, { native: true })
                     .then(metadata => {
                         duree = metadata.format.duration;
                         creatJson(dest, readJson);
-
                     })
                     .catch(err => {
                         console.log(err.message);
                     });
             });
             // Les fichiers sont déplacé dans un autre dossier sur le serveur.
-            cover.mv('../api-rest/public/cover/' + newNameCover, function (err) {
-                if (err)
-                    return res.status(500).send(err);
+            cover.mv("../api-rest/public/cover/" + newNameCover, function(err) {
+                if (err) return res.status(500).send(err);
             });
 
             //Création du fichier JSON contenant tout les peaks
             function creatJson(dest, callback) {
-                shell.exec('audiowaveform -i ' + path + ' -b 8 -z 44100 -o ' + dest);
+                shell.exec("audiowaveform -i " + path + " -b 8 -z 44100 -o " + dest);
                 callback(dest, envoi);
             }
             //Lecture des données généré dans le JSON
             function readJson(dest, callback) {
-                let donnee = fs.readFileSync(dest, 'utf8');
+                let donnee = fs.readFileSync(dest, "utf8");
                 words = JSON.parse(donnee);
                 callback(dest, delJSON);
             }
 
             //destruction du fichier JSON
             function delJSON() {
-                shell.exec('rm ' + dest);
-
+                shell.exec("rm " + dest);
             }
 
             //Fonction d'envoi dans la base de données.
@@ -102,50 +94,48 @@ myRouter.route('/')
                     peaks: words.data,
                     nomAuteur: req.body.author,
                     anneePlage: req.body.date,
-                    cheminPochette: '/SoundWave/api-rest/public/cover/' + newNameCover,
-                    cheminMP3: '/SoundWave/api-rest/public/songs/' + newNameSong
+                    cheminPochette: "/SoundWave/api-rest/public/cover/" + newNameCover,
+                    cheminMP3: "/SoundWave/api-rest/public/songs/" + newNameSong,
                 };
-                musique.insertOne(request, function (err, result) {
+                musique.insertOne(request, function(err, result) {
                     if (err) next(err);
                     else {
-                        res.render('ajoutSucces');
+                        res.render("ajoutSucces");
                         callback(delJSON);
                     }
-
-                })
+                });
             }
-        }
-        else {
+        } else {
             return res.send("Les fichiers fournis ne sont pas au bon format.");
         }
     });
 
-    //Mise à jour d'une plage.
-myRouter.route('/:id')
-    .put(function(req,res,next){
+//Mise à jour d'une plage.
+myRouter
+    .route("/:id")
+    .put(function(req, res, next) {
         var id = req.params.id;
-        var query = {'idPlage':Number(id)};
-        musique.updateOne(query,req.body,function (err,result) {
+        var query = { idPlage: Number(id) };
+        musique.updateOne(query, req.body, function(err, result) {
             if (err) next(err);
             else {
-                res.json({'msg ':' 1 document updated'});
+                res.json({ "msg ": " 1 document updated" });
             }
-        })
-
+        });
     })
     //Suppression d'une plage
     .delete(function(req, res, next) {
-        musique.deleteOne(req.param.id,function (err,result) {
+        musique.deleteOne(req.param.id, function(err, result) {
             if (err) next(err);
             else {
-                res.json({'msg' : '1 document deleted'});
+                res.json({ msg: "1 document deleted" });
             }
         });
     })
     //Récupération d'une plage via son id
-    .get(function (req, res, next) {
-        let query = {"idPlage": Number(req.params.id)};
-        musique.findByOption(query,function (err, result) {
+    .get(function(req, res, next) {
+        let query = { idPlage: Number(req.params.id) };
+        musique.findByOption(query, function(err, result) {
             if (err) next(err);
             else {
                 res.json(result);
@@ -154,59 +144,51 @@ myRouter.route('/:id')
     });
 
 //Récupération d'une plage via son Titre
-myRouter.route('/titre/:titre')
-    .get(function(req,res){
-        let title = new RegExp(req.params.titre);
-        musique.findByTitre({titre: { $regex : title}}, function(err, result) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(result);
-        });
+myRouter.route("/titre/:titre").get(function(req, res) {
+    let title = new RegExp(req.params.titre);
+    musique.findByTitre({ titre: { $regex: title } }, function(err, result) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(result);
     });
+});
 //Ajout d'un like
-myRouter.route('/updateAdd/like/')
-    .put(function (req,res) {
-        musique.updateOne({idPlage: req.params.id}, {$inc:{nbLike : 1}}, function(err, status) {
-            if (err) {
-                res.send(err);
-            }
+myRouter.route("/addLike/:id").put(function(req, res) {
+    musique.updateIncrement({ idPlage: Number(req.params.id) }, { nbLike: 1 }, function(err, status) {
+        if (err) {
+            res.json(err);
+        } else {
             res.json(status);
-        });
-
+        }
     });
+});
 //Suppression d'un like
-myRouter.route('/updateDel/like/')
-    .put(function (req,res) {
-        musique.updateOne({id: req.params.id}, {$inc:{nbLike : -1}}, function(err, status) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(status);
-        });
-
+myRouter.route("/delLike/:id").put(function(req, res) {
+    musique.updateIncrement({ idPlage: Number(req.params.id)},{ nbLike: -1 }, function(err, status) {
+        if (err) {
+            res.json(err);
+        }
+        res.json(status);
     });
+});
 //Mise à jour du nombre de vue +1
-myRouter.route('/updateAdd/view/')
-    .put(function (req,res) {
-        musique.updateOne({id: req.params.id}, {$inc:{nbEcoute : 1}}, function(err, status) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(status);
-        });
-
+myRouter.route("/addView/:id").put(function(req, res) {
+    musique.updateIncrement({ idPlage: Number(req.params.id) }, { nbEcoute: 1 }, function(err, status) {
+        if (err) {
+            res.json(err);
+        }
+        res.json(status);
     });
+});
 //Mise à jour du nombre de vue -1
-myRouter.route('/updateRem/view/')
-    .put(function (req,res) {
-        musique.updateOne({id: req.params.id}, {$inc:{nbEcoute : -1}}, function(err, status) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(status);
-        });
-
+myRouter.route("/delView/:id").put(function(req, res) {
+    musique.updateIncrement({ idPlage: Number(req.params.id) }, { nbEcoute: -1 }, function(err, status) {
+        if (err) {
+            res.json(err);
+        }
+        res.json(status);
     });
+});
 
 module.exports = myRouter;

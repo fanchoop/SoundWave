@@ -1,8 +1,8 @@
 soundManager.url = '/javascripts/soundmanager/swf/';
 soundManager.onready(function() {
     soundManager.createSound({
-        id: util.songId,
-        url: util.cheminMP3,
+        id: song.smId,
+        url: song.cheminMP3,
         onpause: function () {
             util.addClass(player.pauseButton ,'play');
             util.removeClass(player.pauseButton,'pause');
@@ -14,6 +14,8 @@ soundManager.onready(function() {
         onplay: function() {
             util.addClass(player.pauseButton ,'pause');
             util.removeClass(player.pauseButton,'play');
+            player.waveform.reset();
+
         },
         onfinish: function() {
             util.addClass(player.pauseButton ,'play');
@@ -23,10 +25,10 @@ soundManager.onready(function() {
         whileplaying: function() {
             let rect = util.searchRect(util.getXFromTime(this.position));
             util.addClassSvg(rect, "passed");
-            player.setDuree(util.SecToMin(Math.floor(this.position/1000)));
+            player.setDuree(util.SecToMin(Math.round(this.position/1000)));
         }
     });
-    soundManager.play(util.songId);
+    soundManager.play(song.smId);
 });
 
 

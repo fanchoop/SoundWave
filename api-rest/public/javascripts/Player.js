@@ -1,14 +1,17 @@
 let Player = function () {
-    this.pauseButton = document.querySelector(".play");
-    this.volumeButton = document.querySelector(".volume");
-    this.svg = document.querySelector("svg");
+    this.pauseButton = document.querySelector(".audioplayer > .controls >.play-pause");
+    this.volumeButton = document.querySelector(".audioplayer > .controls > .volume");
+    this.svg = document.querySelector(".audioplayer > svg");
+    this.likeButton = document.querySelector(".audioplayer > .social > .like");
+    this.comButton = document.querySelector(".audioplayer > .statistiques > .nb-commentaires");
+    this.viewDisplay = document.querySelector(".audioplayer > .statistiques > .nb-lectures");
     this.sliderTimeout;
 }
 
 let player = new Player();
 
 Player.prototype.createWaveform = function () {
-    this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 7, 1, util.peaks);
+    this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 7, 1, song.peaks);
     this.waveform.draw();
     this.appendOnClickListeners();
 }
@@ -63,7 +66,7 @@ Player.prototype.toggleSlider = function(e) {
 Player.prototype.setSoundManagerPosition = function (rect) {
     let x = parseFloat(rect.getAttribute("x"));
     let currentTime = util.getTimeFromX(x);
-    soundManager.setPosition(util.songId, currentTime * 1000);
+    soundManager.setPosition(song.smId, currentTime * 1000);
 }
 
 /**
@@ -104,13 +107,52 @@ Player.prototype.setMaxDuree = function (duree) {
     document.querySelector('.total').innerText = duree;
 }
 
-
-
 Player.prototype.setDuree = function (duree) {
     document.querySelector(".en-cours").innerText = duree;
 }
 
-//affichage de la waveform
+Player.prototype.setCover = function () {
+    let img = document.querySelector(".visuel img");
+    if (!img) {
+        img = document.createElement("img");
+    }
+    util.addClass(img, "visuel");
+    img.setAttribute("src", song.cheminPochette);
+    document.querySelector(".visuel").appendChild(img);
+}
 
+Player.prototype.toggleLike = function () {
+    if (!song.liked) {
+        connexion.addLike(song.idPlage, function (err, xhr) {
+            if (!err) {
+                song.liked = true;
+                player.likeButton.innerText = parseInt(player.likeButton.innerText) + 1;
+            }
+        });
+    } else {
+        connexion.removeLike(song.idPlage, function (err, xhr) {
+            if (!err) {
+                song.liked = false;
+                player.likeButton.innerText = parseInt(player.likeButton.innerText) - 1;
+            }
+        });
+    }
+}
+
+Player.prototype.addCom = function () {
+    connexion.addCom(song.idPlage, function(err, xhr) {
+        if (!err) {
+            player.comButton.innerText = parseInt(player.comButton.innerText) + 1;
+        }
+    });
+}
+
+Player.prototype.addView = function () {
+    connexion.addViewNumber(song.idPlage, function (err, xhr) {
+        if (!err) {
+            player.viewDisplay.innerText = parseInt(player.viewDisplay.innerText) + 1;
+        }
+    });
+}
 
 

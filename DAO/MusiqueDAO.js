@@ -11,6 +11,11 @@ var MusiqueDAO = function () {
             db.collection('musique').updateOne(option, {$set:newvalues},{},callback);
         });
     };
+    this.updateIncrement = function (option, newvalues, callback) {
+        Mongo((db)=> {
+            db.collection('musique').updateOne(option, {$inc:newvalues}, {}, callback);
+        })
+    }
     this.deleteOne = function (option,callback) {
         Mongo((db) => {
             db.collection('musique').deleteOne(option,{},callback);

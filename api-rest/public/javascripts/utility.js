@@ -1,4 +1,6 @@
-Utility.prototype.svgURI = "http://www.w3.org/2000/svg";
+let Utility = function () {
+    this.svgURI = "http://www.w3.org/2000/svg";
+}
 
 /**
  * Add a class to a DOM element
@@ -11,7 +13,6 @@ Utility.prototype.addClassSvg = function (target, name) {
         target.className.baseVal += " " + name;
     } 
 }
-
 Utility.prototype.addClass = function (target, name) {
     if (target.className.indexOf(" " + name) == -1) {
         target.className += " " + name;
@@ -107,15 +108,17 @@ Utility.prototype.searchRect = function (x) {
  */
 Utility.prototype.getXFromTime = function (time) {
     let svg = document.querySelector("svg");
-    return svg.getBoundingClientRect().width*(time/ (util.duree * 1000));
+    return svg.getBoundingClientRect().width*(time/ (song.duree * 1000));
 }
 
 /**
  * return time in second
  */
 Utility.prototype.getTimeFromX = function (x) {
+
     let svg = document.querySelector("svg");
-    return (x/svg.getBoundingClientRect().width) * util.duree;    
+    console.log((x/svg.getBoundingClientRect().width) * song.duree);
+    return (x/svg.getBoundingClientRect().width) * song.duree;    
 }
 
 /**

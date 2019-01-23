@@ -24,7 +24,6 @@ body {
     position: absolute;
     width:100%;
     height:100%;
-    background-image: url('../cover/Flume.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -273,6 +272,7 @@ body {
     transition: all .15s ease-out;
 }
 
+)
 .peak:hover {
     transform: translateY(-7px);
 }
