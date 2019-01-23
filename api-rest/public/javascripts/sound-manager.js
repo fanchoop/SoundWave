@@ -30,6 +30,3 @@ soundManager.onready(function() {
     });
     soundManager.play(song.smId);
 });
-
-
-    

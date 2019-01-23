@@ -11,6 +11,7 @@ block content
                         th(scope='col') Titre
                         th(scope='col') Artiste
                         th(scope='col') Date
+                        th(scope='col') Lecture
                         th(scope='col') Modifier
                         th(scope='col') Supprimer
                 tbody
@@ -22,6 +23,8 @@ block content
                             td= prop.nomAuteur
                             td= prop.anneePlage
                             td
+                                a(href='http://localhost:3000/lecteur/' +prop.idPlage, title='Lecture ') Lire la musique
+                            td
                                 a(href='http://localhost:3000/add-song/' +prop.idPlage, title='Modifier ') Modifier la musique
                             td
-                                a(href='http://localhost:3000/add-song/del/' + prop.idPlage, title='Supprimer ') Supprimer la musique
+                                a(href='http://localhost:3000/musique/del/' + prop.idPlage, title='Supprimer ') Supprimer la musique

@@ -21,9 +21,9 @@ Player.prototype.appendOnClickListeners = function () {
     while (firstRect != null) {
         firstRect.addEventListener("click", function(e){
             player.onWaveClick(e);
-        }); 
+        });
         firstRect = firstRect.nextElementSibling;
-    }   
+    }
 }
 
 Player.prototype.redraw = function () {
@@ -32,7 +32,7 @@ Player.prototype.redraw = function () {
 }
 
 Player.prototype.toggleSlider = function(e) {
-    let slider = document.querySelector(".slider"); 
+    let slider = document.querySelector(".slider");
     if (!slider) {
         slider = document.createElement("input");
         slider.setAttribute("type", "range");
@@ -46,11 +46,11 @@ Player.prototype.toggleSlider = function(e) {
                 e.target.parentElement.removeChild(slider);
             }, 1000);
         });
-        
+
         slider.addEventListener("mouseenter", function(e) {
-                clearTimeout(player.sliderTimeout);
+            clearTimeout(player.sliderTimeout);
         });
-        
+
         slider.addEventListener("change", function(e){
             player.volumeButton.setAttribute("data-value", e.target.value);
             soundManager.setVolume(e.target.value);
@@ -99,7 +99,7 @@ Player.prototype.onWaveClick = function (e) {
                 return (current.nextElementSibling != e.target.nextElementSibling) ? current.nextElementSibling : null;
             }
         );
-        
+
     }
 }
 

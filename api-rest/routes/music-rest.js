@@ -6,7 +6,6 @@ var duree;
 var shell = require("shelljs");
 var fs = require("fs");
 var words;
-var requestResult = 0;
 /* Affichage des résultats de la requête findAll faite à la base de données */
 myRouter
     .route("/")
@@ -24,7 +23,7 @@ myRouter
         //Recupération des fichiers envoyée par le formulaire
         let mp3 = req.files.music;
         let cover = req.files.cover;
-
+        var idPlage = 0;
         //Récupération des extenssions des fichiers reçu
         let regex = /(?:\.([^.]+))?$/;
         let verification1 = regex.exec(req.files.music.name)[1];
@@ -32,18 +31,35 @@ myRouter
 
         if ((verification1 === "mp3" && verification2 === "jpg") || verification2 === "jpeg") {
             //Modification des nom des fichiers pour remplacer les espace par des tirets
-            let songwithoutSpace = req.files.music.name.replace(/\s+/g, "-").toLowerCase();
-            let newNameSongNoExtNoSPace = req.body.name.replace(/\s+/g, "-").toLowerCase();
+            let songwithoutSpace = req.files.music.name.replace(/\s+/g, '-').toLowerCase();
+            let newNameSongNoExtNoSPace = req.body.name.replace(/\s+/g, '-').toLowerCase();
+            //Modification des nom des fichiers pour remplacer les # par des tirets
+            songwithoutSpace = songwithoutSpace.replace(/#/g, '-');
+            newNameSongNoExtNoSPace = newNameSongNoExtNoSPace.replace(/#/g,'-');
+
 
             //Remove des éléments qui sont dans les parenthèses.
-            var newNameSong = songwithoutSpace.replace(/\(.[^(]*\)/g, "");
-            let newNameSongNoExt = newNameSongNoExtNoSPace.replace(/\(.[^(]*\)/g, "");
-            let newNameCover = req.files.cover.name.replace(/\s+/g, "-").toLowerCase();
-            musique.findLastEntry(function(err, result) {
-                if (err) next(err);
-                requestResult = result[0].idPlage;
-                requestResult++;
-            });
+            var newNameSong = songwithoutSpace.replace(/\(.[^(]*\)/g, '');
+            let newNameSongNoExt = newNameSongNoExtNoSPace.replace(/\(.[^(]*\)/g, '');
+            let newNameCover = req.files.cover.name.replace(/\s+/g, '-').toLowerCase();
+            if(req.body.id === undefined) {
+                musique.findLastEntry(function (err, result) {
+                    if (err) next(err);
+                    idPlage = result[0].idPlage;
+                    idPlage++;
+                });
+            } else {
+                var idDel = req.body.id;
+                var queryDel = {idPlage: Number(idDel)};
+                musique.deleteOne(queryDel,function (err,result) {
+                    if (err) next(err);
+                    else {
+                        idPlage = Number(req.body.id);
+                    }
+                });
+                
+            }
+            
             //Chemin d'entrée et de sortie pour la commande audioWaveform
             let path = "../api-rest/public/songs/" + newNameSong;
             let dest = "../api-rest/public/songData/" + newNameSongNoExt + ".json";
@@ -85,7 +101,7 @@ myRouter
             //Fonction d'envoi dans la base de données.
             function envoi(dest, callback) {
                 let request = {
-                    idPlage: Number(requestResult),
+                    idPlage: idPlage,
                     titre: req.body.name,
                     duree: duree,
                     nbLike: 0,
@@ -94,13 +110,13 @@ myRouter
                     peaks: words.data,
                     nomAuteur: req.body.author,
                     anneePlage: req.body.date,
-                    cheminPochette: "/cover/" + newNameCover,
-                    cheminMP3: "/songs/" + newNameSong,
+                    cheminPochette: '/cover/' + newNameCover,
+                    cheminMP3: '/songs/' + newNameSong
                 };
                 musique.insertOne(request, function(err, result) {
                     if (err) next(err);
                     else {
-                        res.render("ajoutSucces");
+                        res.redirect('manage-song');
                         callback(delJSON);
                     }
                 });
@@ -108,6 +124,7 @@ myRouter
         } else {
             return res.send("Les fichiers fournis ne sont pas au bon format.");
         }
+
     });
 
 //Mise à jour d'une plage.
@@ -119,19 +136,11 @@ myRouter
         musique.updateOne(query, req.body, function(err, result) {
             if (err) next(err);
             else {
-                res.json({ "msg ": " 1 document updated" });
+                res.redirect('manage-song');
             }
         });
     })
-    //Suppression d'une plage
-    .delete(function(req, res, next) {
-        musique.deleteOne(req.param.id, function(err, result) {
-            if (err) next(err);
-            else {
-                res.json({ msg: "1 document deleted" });
-            }
-        });
-    })
+    
     //Récupération d'une plage via son id
     .get(function(req, res, next) {
         let query = { idPlage: Number(req.params.id) };
@@ -141,6 +150,27 @@ myRouter
                 res.json(result);
             }
         });
+    });
+//Suppression d'une plage
+myRouter.route('/del/:id')
+    .get(function(req,res,next){
+        var id = req.params.id;
+        var query = {idPlage: Number(id)};
+        musique.deleteOne(query,function (err,result) {
+            if (err) next(err);
+            res.redirect('/manage-song')
+        })
+    });
+myRouter.route('/mod/:id')
+    .get(function(req,res,next){
+        var id = req.params.id;
+        var query = {idPlage: Number(id)};
+        musique.findByOption(query,function (err,result) {
+            if (err) next(err);
+            res.render("add-song-modifie",{titre: "Modifier une musique",data:result})
+    
+        });
+    
     });
 
 //Récupération d'une plage via son Titre
