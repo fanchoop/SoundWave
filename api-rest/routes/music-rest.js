@@ -45,9 +45,7 @@ myRouter.route('/')
                 if (err) next(err);
                 console.log(result);
                 requestResult = result[0].idPlage;
-                console.log(requestResult + ' AVANT');
                 requestResult++;
-                console.log(requestResult + ' Apres');
             });
             //Chemin d'entrée et de sortie pour la commande audioWaveform
             let path = "../api-rest/public/songs/" + newNameSong;
@@ -102,8 +100,8 @@ myRouter.route('/')
                     peaks: words.data,
                     nomAuteur: req.body.author,
                     anneePlage: req.body.date,
-                    cheminPochette: '/SoundWave/api-rest/public/cover/' + newNameCover,
-                    cheminMP3: '/SoundWave/api-rest/public/songs/' + newNameSong
+                    cheminPochette: 'cover/' + newNameCover,
+                    cheminMP3: 'songs/' + newNameSong
                 };
                 musique.insertOne(request, function (err, result) {
                     if (err) next(err);
@@ -124,8 +122,8 @@ myRouter.route('/')
 myRouter.route('/:id')
     .put(function(req,res,next){
         var id = req.params.id;
-        var query = {'idPlage':Number(id)};
-        musique.updateOne(query,req.body,function (err,result) {
+        var query = {idPlage: Number(id)};
+        musique.updateOne(query, req.body,function (err,result) {
             if (err) next(err);
             else {
                 res.json({'msg ':' 1 document updated'});
@@ -208,5 +206,4 @@ myRouter.route('/updateRem/view/')
         });
 
     });
-
 module.exports = myRouter;

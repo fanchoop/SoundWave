@@ -6,7 +6,7 @@ var MusiqueDAO = function () {
             db.collection('musique').insertOne(option,{},callback);
         });
     };
-    this.updateOne = function (option, newvalues,callback) {
+    this.updateOne = function (option, newvalues, callback) {
         Mongo((db) => {
             db.collection('musique').updateOne(option, {$set:newvalues},{},callback);
         });

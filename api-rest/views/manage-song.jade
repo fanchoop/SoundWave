@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    //h1 hello #{data}
+    .row
+        .col-md-8
+            table.table.table-striped
+                thead
+                    tr
+                        th(scope='col') Id
+                        th(scope='col') Titre
+                        th(scope='col') Artiste
+                        th(scope='col') Date
+                        th(scope='col') Modifier
+                        th(scope='col') Supprimer
+                tbody
+
+                    for prop in data
+                        tr
+                            td= prop.idPlage
+                            td= prop.titre
+                            td= prop.nomAuteur
+                            td= prop.anneePlage
+                            td
+                                a(href='http://localhost:3000/add-song/' +prop.idPlage, title='Modifier ') Modifier la musique
+                            td
+                                a(href='http://localhost:3000/add-song/del/' + prop.idPlage, title='Supprimer ') Supprimer la musique
