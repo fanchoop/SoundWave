@@ -5,7 +5,7 @@ let Waveform = function(container, baseline, peakWidth, peakOffset, peaks) {
     this.peakOffset = peakOffset;
     this.peaks = peaks;
     this.timeouts = [];
-}
+};
 
 
 /**
@@ -24,25 +24,32 @@ Waveform.prototype.draw = function () {
     let waveWidth = svg.getBoundingClientRect().width;
 
     let baseline = waveHeight * this.baselinePourcentage;
-
-    let nbRect = Math.floor((waveWidth + 2 * this.peakOffset) / (this.peakWidth + this.peakOffset)); //nombre de pique présent sur le SVG
-    // nombre de valeur par pique, chaque pique représentera une moyenne de nbValue valeurs
-    // cette arrondi pose des problèmes
+    /*
+    nombre de pique présent sur le SVG 
+    nombre de valeur par pique, chaque pique représentera une moyenne de nbValue valeurs
+    cette arrondi pose des problèmes
+    */
+    let nbRect = Math.floor((waveWidth + 2 * this.peakOffset) / (this.peakWidth + this.peakOffset));
     let nbValue = Math.floor(this.peaks.length / nbRect);
     if (nbValue == 0) {
         nbValue = 1;
     }
+    /*
+    let delimitationHeight = 3;
+    recherche de la plus grand valeur possible elle servira de référence pour les autres
+    */
+    let maxValue = util.findMaxAbs(this.peaks); 
 
-    let maxValue = util.findMaxAbs(this.peaks); // recherche de la plus grand valeur possible elle servira de référence pour les autres
-
-    // let delimitationHeight = 3;
+    
 
     let peakX = 0;
     let i = 0;
 
     while (i < this.peaks.length && peakX + this.peakOffset + this.peakWidth <= waveWidth) {
-        //slice fait une copie du tableau compris entre les index fournis,
-        //si l'index de fin dépasse la fin du tableau alors slice s'arrete à la fin du tableau
+        /*
+        slice fait une copie du tableau compris entre les index fournis,
+        si l'index de fin dépasse la fin du tableau alors slice s'arrete à la fin du tableau
+        */
         let value = util.averageAbs(this.peaks.slice(i, i + nbValue));
 
         let peakHeight = waveHeight * (value / maxValue);
@@ -53,23 +60,24 @@ Waveform.prototype.draw = function () {
         peakStyle += "stroke-opacity:0;";
 
         let round = Math.floor(this.peakWidth / 3);
-        
-        let peak = util.createRectSvg(peakX, peakY, round, round, this.peakWidth, peakHeight /*+ delimitationHeight*/, peakStyle)
+
+        let peak = util.createRectSvg(peakX, peakY, round, round, this.peakWidth, peakHeight /*+ delimitationHeight*/, peakStyle);
         util.addClassSvg(peak, "peak");
         svg.appendChild(peak);
 
         peakX += this.peakOffset + this.peakWidth;
         i += nbValue;
     }
-
-    // let delimitation = util.createRectSvg(0, baseline - delimitationHeight / 2, 0, 0, waveWidth, delimitationHeight, "fill:#000");
-    // svg.appendChild(delimitation);
-}
+    /*
+    let delimitation = util.createRectSvg(0, baseline - delimitationHeight / 2, 0, 0, waveWidth, delimitationHeight, "fill:#000");
+    svg.appendChild(delimitation);
+    */
+};
 
 Waveform.prototype.redraw = function () {
     waveContainer.innerHTML = "";
     this.draw();
-}
+};
 
 Waveform.prototype.reset = function() {
     let lastPassedRect = util.findCurrentPeak();
@@ -77,7 +85,7 @@ Waveform.prototype.reset = function() {
         util.removeClassSvg(lastPassedRect, "passed");
         lastPassedRect = lastPassedRect.previousElementSibling;
     }
-}
+};
 
 Waveform.prototype.colorUntilX = function (x) {
     let current = util.findCurrentPeak();
@@ -85,7 +93,7 @@ Waveform.prototype.colorUntilX = function (x) {
         util.addClassSvg(current, "passed");
         current = current.nextElementSibling;
     }
-}
+};
 
 /**
  * cherche un élément dans les frères ainés (previousElementSiblings) d'un autre élément
@@ -101,13 +109,13 @@ Waveform.prototype.searchLeft = function (current, searched) {
         current = current.previousElementSibling;
     }
     return false;
-}
+};
 
 /**
  * @param {Element} current l'élement par le quel commencer
  * @param {int} time le temps initiale avant l'enclenchement de l'animation
  * @param {int} timeout le temps entre chaque animation
- * @param {function(Element)} callback logique à appliquer à un élément 
+ * @param {function(Element)} callback logique à appliquer à un élément
  * @param {function(Element): Element} nextCallback logique pour determiner la validité de l'élément suivant, doit retourner l'élément suivant
  */
 Waveform.prototype.spreadChange = function (current, time, timeout, callback, nextCallback) {
@@ -119,12 +127,12 @@ Waveform.prototype.spreadChange = function (current, time, timeout, callback, ne
     if (nextElem) {
         this.spreadChange(nextElem, time, timeout, callback, nextCallback);
     }
-}
+};
 
 /**
  * créer les gradient nécessaire avec la beauté du waveform
  * Note : créé un élément def et le rajoute au svg
- * @param {Element} svg l'élément auquel les gradients seront rattachés 
+ * @param {Element} svg l'élément auquel les gradients seront rattachés
  */
 Waveform.prototype.createGradients = function (svg) {
     let def = document.createElementNS(util.svgURI, "defs");
@@ -184,4 +192,4 @@ Waveform.prototype.createGradients = function (svg) {
     def.appendChild(activeGradient);
 
     svg.appendChild(def);
-}
+};

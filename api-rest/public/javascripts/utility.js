@@ -1,6 +1,6 @@
 let Utility = function () {
     this.svgURI = "http://www.w3.org/2000/svg";
-}
+};
 
 /**
  * Add a class to a DOM element
@@ -9,15 +9,15 @@ let Utility = function () {
  */
 
 Utility.prototype.addClassSvg = function (target, name) {
-    if (target.className.baseVal.indexOf(name) == -1) {
+    if (target.className.baseVal.indexOf(name) === -1) {
         target.className.baseVal += " " + name;
     } 
-}
+};
 Utility.prototype.addClass = function (target, name) {
-    if (target.className.indexOf(" " + name) == -1) {
+    if (target.className.indexOf(" " + name) === -1) {
         target.className += " " + name;
-    } 
-}
+    }
+};
 
 /**
  * remove a class from a DOM element
@@ -26,10 +26,10 @@ Utility.prototype.addClass = function (target, name) {
  */
 Utility.prototype.removeClassSvg = function (target, name) {
     target.className.baseVal = target.className.baseVal.replace(name, "");
-}
+};
 Utility.prototype.removeClass = function (target, name) {
     target.className = target.className.replace(" " + name, "");
-}
+};
 
 
 /**
@@ -53,10 +53,10 @@ Utility.prototype.createRectSvg = function (x, y, rx, ry, width, height, style) 
     rect.setAttribute("height", height);
     rect.setAttribute("style", style);
     return rect;
-}
+};
 
 /**
- * renvoie le dernier peak possedant la classe CSS "passed". 
+ * renvoie le dernier peak possedant la classe CSS "passed".
  * Il est considéré comme le dernier élément "actif"
  * @return {Element} le pique en question ou le premier pique du svg
  */
@@ -70,7 +70,7 @@ Utility.prototype.findCurrentPeak = function () {
         util.addClassSvg(peak, 'passed');
         return peak;
     }
-}
+};
 
 /**
  * find a DOM element in the next siblings of the current element
@@ -86,11 +86,11 @@ Utility.prototype.searchRight = function(current, condition) {
         }
     }
     return null;
-}
+};
 
 /**
  * find a rect that is x position is under the given one*
- * the search will only be executed on the nexts siblings of the current peak 
+ * the search will only be executed on the nexts siblings of the current peak
  * @param {Number} x the given x position
  */
 Utility.prototype.searchRect = function (x) {
@@ -101,7 +101,7 @@ Utility.prototype.searchRect = function (x) {
             return true;
         }
     });
-}
+};
 
 /**
  * return x in pixel
@@ -109,7 +109,7 @@ Utility.prototype.searchRect = function (x) {
 Utility.prototype.getXFromTime = function (time) {
     let svg = document.querySelector("svg");
     return svg.getBoundingClientRect().width*(time/ (song.duree * 1000));
-}
+};
 
 /**
  * return time in second
@@ -117,8 +117,8 @@ Utility.prototype.getXFromTime = function (time) {
 Utility.prototype.getTimeFromX = function (x) {
 
     let svg = document.querySelector("svg");
-    return (x/svg.getBoundingClientRect().width) * song.duree;    
-}
+    return (x/svg.getBoundingClientRect().width) * song.duree;
+};
 
 /**
  * calcule la moyenne des valeur absolue d'un tableau
@@ -130,7 +130,7 @@ Utility.prototype.averageAbs = function(array) {
         sum += Math.abs(array[i]);
     }
     return sum / array.length;
-}
+};
 
 /**
  * return la valeur absolue maximale d'un tableau donnée
@@ -144,7 +144,7 @@ Utility.prototype.findMaxAbs = function (array) {
         }
     }
     return max;
-}
+};
 
 /**
  * delete every timeout in then arrau
@@ -154,7 +154,7 @@ Utility.prototype.clearTimeouts = function(timeoutsIds) {
     for (let i = 0; i < timeoutsIds.length; i ++) {
         clearTimeout(timeoutsIds[i]);
     }
-}
+};
 
 Utility.prototype.SecToMin = function(sec) {
     let minutes = Math.floor(sec/60);
@@ -164,6 +164,6 @@ Utility.prototype.SecToMin = function(sec) {
     } else {
         return minutes + "." + Math.round(remainingSec);
     }
-}
+};
 
 let util = new Utility();

@@ -1,7 +1,7 @@
 function Connexion() {}
 
 function err(callback) {
-    if (this.readyState == 4 && this.status == 200) {
+    if (this.readyState === 4 && this.status === 200) {
         callback(this.responseText);
     }
 }
@@ -9,17 +9,17 @@ function err(callback) {
 Connexion.prototype.GetRequest = function (url, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        if (xhttp.readyState == 4){
+        if (xhttp.readyState === 4){
             if (xhttp.status.toString().startsWith(2)) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));
             }
-        }   
-    }
+        }
+    };
     xhttp.onerror = function() {
         callback(new Error(this.status, this.statusText));
-    }
+    };
     xhttp.open("GET", url, true);
     xhttp.send(null);
 };
@@ -27,17 +27,17 @@ Connexion.prototype.GetRequest = function (url, callback) {
 Connexion.prototype.PostRequest = function (url, values, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        if (xhttp.readyState == 4){
+        if (xhttp.readyState === 4){
             if (xhttp.status.toString().startsWith(2)) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));
             }
-        }   
-    }
+        }
+    };
     xhttp.onerror = function() {
         callback(new Error(this.status, this.statusText));
-    }
+    };
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -47,17 +47,17 @@ Connexion.prototype.PostRequest = function (url, values, callback) {
 Connexion.prototype.PutRequest = function (url, values, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        if (xhttp.readyState == 4){
+        if (xhttp.readyState === 4){
             if (xhttp.status.toString().startsWith(2)) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));
             }
-        }   
-    }
+        }
+    };
     xhttp.onerror = function() {
         callback(new Error(this.status, this.statusText));
-    }
+    };
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -95,10 +95,10 @@ Connexion.prototype.addNumberOfShare = function (idMusic, callback) {
 };
 Connexion.prototype.addCom = function (idMusic, callback) {
     this.PutRequest("http:/localhost:3000/musique/addCom/" + idMusic, null, callback);
-}
+};
 Connexion.prototype.delCom = function (idMusic, callback) {
     this.PutRequest("http:/localhost:3000/musique/delCom/" + idMusic, null, callback);
-}
+};
 
 
 

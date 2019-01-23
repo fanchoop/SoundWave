@@ -6,7 +6,7 @@ let Player = function () {
     this.comButton = document.querySelector(".audioplayer > .statistiques > .nb-commentaires");
     this.viewDisplay = document.querySelector(".audioplayer > .statistiques > .nb-lectures");
     this.sliderTimeout;
-}
+};
 
 let player = new Player();
 
@@ -14,7 +14,7 @@ Player.prototype.createWaveform = function () {
     this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 7, 1, song.peaks);
     this.waveform.draw();
     this.appendOnClickListeners();
-}
+};
 
 Player.prototype.appendOnClickListeners = function () {
     let firstRect = document.querySelector("svg > rect");
@@ -24,12 +24,12 @@ Player.prototype.appendOnClickListeners = function () {
         });
         firstRect = firstRect.nextElementSibling;
     }
-}
+};
 
 Player.prototype.redraw = function () {
     this.waveform.draw();
     this.appendOnClickListeners();
-}
+};
 
 Player.prototype.toggleSlider = function(e) {
     let slider = document.querySelector(".slider");
@@ -61,13 +61,13 @@ Player.prototype.toggleSlider = function(e) {
         e.currentTarget.parentElement.removeChild(slider);
         clearTimeout(player.sliderTimeout);
     }
-}
+};
 
 Player.prototype.setSoundManagerPosition = function (rect) {
     let x = parseFloat(rect.getAttribute("x"));
     let currentTime = util.getTimeFromX(x);
     soundManager.setPosition(song.smId, currentTime * 1000);
-}
+};
 
 /**
  * Gere le clic de l'utilisateur sur un rectangle de la waveform
@@ -101,15 +101,15 @@ Player.prototype.onWaveClick = function (e) {
         );
 
     }
-}
+};
 
 Player.prototype.setMaxDuree = function (duree) {
     document.querySelector('.total').innerText = duree;
-}
+};
 
 Player.prototype.setDuree = function (duree) {
     document.querySelector(".en-cours").innerText = duree;
-}
+};
 
 Player.prototype.setCover = function () {
     let img = document.querySelector(".visuel img");
@@ -119,40 +119,40 @@ Player.prototype.setCover = function () {
     util.addClass(img, "visuel");
     img.setAttribute("src", song.cheminPochette);
     document.querySelector(".visuel").appendChild(img);
-}
+};
 
 Player.prototype.toggleLike = function () {
     if (!song.liked) {
-        connexion.addLike(song.idPlage, function (err, xhr) {
+        connexion.addLike(song.idPlage, function (err) {
             if (!err) {
                 song.liked = true;
                 player.likeButton.innerText = parseInt(player.likeButton.innerText) + 1;
             }
         });
     } else {
-        connexion.removeLike(song.idPlage, function (err, xhr) {
+        connexion.removeLike(song.idPlage, function (err) {
             if (!err) {
                 song.liked = false;
                 player.likeButton.innerText = parseInt(player.likeButton.innerText) - 1;
             }
         });
     }
-}
+};
 
 Player.prototype.addCom = function () {
-    connexion.addCom(song.idPlage, function(err, xhr) {
+    connexion.addCom(song.idPlage, function(err) {
         if (!err) {
             player.comButton.innerText = parseInt(player.comButton.innerText) + 1;
         }
     });
-}
+};
 
 Player.prototype.addView = function () {
-    connexion.addViewNumber(song.idPlage, function (err, xhr) {
+    connexion.addViewNumber(song.idPlage, function (err) {
         if (!err) {
             player.viewDisplay.innerText = parseInt(player.viewDisplay.innerText) + 1;
         }
     });
-}
+};
 
 
