@@ -31,9 +31,7 @@ player.createWaveform();
 
 window.addEventListener("resize", function () {
     player.waveform.waveContainer.innerHTML = "";
-    player.redraw();
-    let smSong = soundManager.getSoundById(song.smId);
-    player.waveform.colorUntilX(util.getXFromTime(smSong.position, song.duree));
+    player.redraw();   
 });
 
 //gestion du temps

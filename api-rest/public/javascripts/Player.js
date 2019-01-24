@@ -14,22 +14,32 @@ let player = new Player();
 Player.prototype.createWaveform = function () {
     this.waveform = new Waveform(document.querySelector(".waveform"), 0.66, 5, 1, song.peaks);
     this.waveform.draw();
-    this.appendOnClickListeners();
+    this.appendListeners();
 };
 
-Player.prototype.appendOnClickListeners = function () {
-    let firstRect = document.querySelector("svg > rect");
-    while (firstRect != null) {
-        firstRect.addEventListener("click", function(e){
+Player.prototype.appendListeners = function () {
+    let rects = document.querySelectorAll("svg > rect.peak");
+    for (let i = 0; i < rects.length; i++) {
+        rects[i].addEventListener("click", function(e){
             player.onWaveClick(e);
         });
-        firstRect = firstRect.nextElementSibling;
+
+        rects[i].addEventListener("mouseenter", function(e) {
+            this.waveform.moveHover(e.currentTarget);
+        }.bind(this));
+
+        rects[i].addEventListener("mouseout", function(e) {
+            this.waveform.clearHover();
+        }.bind(this));
     }
 };
 
+
 Player.prototype.redraw = function () {
     this.waveform.draw();
-    this.appendOnClickListeners();
+    let smSong = soundManager.getSoundById(song.smId);
+    this.waveform.colorUntilX(util.getXFromTime(smSong.position, song.duree));
+    this.appendListeners();
 };
 
 Player.prototype.toggleSlider = function(e) {
@@ -75,32 +85,9 @@ Player.prototype.setSoundManagerPosition = function (rect) {
  * @param {Event} e
  */
 Player.prototype.onWaveClick = function (e) {
-    let currentPeak = util.findCurrentPeak();
     //fait reculer la coloration
-    this.setSoundManagerPosition(e.currentTarget);
-    util.clearTimeouts(this.waveform.timeouts);
-    this.waveform.timeouts = [];
-
-    if (this.waveform.searchLeft(currentPeak, e.target)) {
-        this.waveform.spreadChange(currentPeak, 0, 5,
-            function (current) {
-                util.removeClassSvg(current, "passed");
-            },
-            function (current) {
-                return (current.previousElementSibling != e.target) ? current.previousElementSibling : null;
-            }
-        );
-        //fait avancer la coloration
-    } else {
-        this.waveform.spreadChange(currentPeak, 0, 5,
-            function (current) {
-                util.addClassSvg(current, "passed");
-            },
-            function (current) {
-                return (current.nextElementSibling != e.target.nextElementSibling) ? current.nextElementSibling : null;
-            }
-        );
-    }
+    this.setSoundManagerPosition(e.target);
+    this.waveform.clearHover();
 };
 
 Player.prototype.setMaxDuree = function (duree) {
@@ -154,9 +141,4 @@ Player.prototype.addView = function () {
         }
     });
 };
-
-    // alert ('<iframe src="http://localhost:3000/lecteur/'+song.idPlage+'" width="100%" height="400px" frameborder="no" scrolling="no"></iframe>');
-
-
-
-
+// alert ('<iframe src="http://localhost:3000/lecteur/'+song.idPlage+'" width="100%" height="400px" frameborder="no" scrolling="no"></iframe>');

@@ -56,59 +56,11 @@ Utility.prototype.createRectSvg = function (x, y, rx, ry, width, height, style) 
 };
 
 /**
- * renvoie le dernier peak possedant la classe CSS "passed".
- * Il est considéré comme le dernier élément "actif"
- * @return {Element} le pique en question ou le premier pique du svg
- */
-Utility.prototype.findCurrentPeak = function () {
-    let arr = document.querySelectorAll("rect.passed");
-    if (arr.length > 0) {
-        return arr[arr.length - 1];
-    } else {
-        //selectionne le premier pique du svg
-        let peak = document.querySelector("svg > rect");
-        util.addClassSvg(peak, 'passed');
-        return peak;
-    }
-};
-
-/**
- * find a DOM element in the next siblings of the current element
- * @param {Element} current the current element
- * @param {function(Element): boolean} condition return true if the current element is the right one, false if not
- */
-Utility.prototype.searchRight = function(current, condition) {
-    if(current != null) {
-        if(condition(current)) {
-            return current;
-        } else {
-            return this.searchRight(current.nextElementSibling, condition);
-        }
-    }
-    return null;
-};
-
-/**
- * find a rect that is x position is under the given one*
- * the search will only be executed on the nexts siblings of the current peak
- * @param {Number} x the given x position
- */
-Utility.prototype.searchRect = function (x) {
-    return this.searchRight(this.findCurrentPeak(), function(current) {
-        if(current.nextElementSibling) {
-            return parseInt(current.nextElementSibling.getAttribute("x")) > x;
-        } else {
-            return true;
-        }
-    });
-};
-
-/**
  * return x in pixel
  */
 Utility.prototype.getXFromTime = function (time) {
     let svg = document.querySelector("svg");
-    return svg.getBoundingClientRect().width*(time/ (song.duree * 1000));
+    return svg.getBoundingClientRect().width*((time/1000)/song.duree);
 };
 
 /**

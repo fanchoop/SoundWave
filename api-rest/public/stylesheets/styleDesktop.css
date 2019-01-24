@@ -194,6 +194,10 @@ button {
     fill: url(#active);
 }
 
+.hover {
+    fill: url(#hover);
+}
+
 /* Icône like sur le bouton nbLike */
 
 .like:before {
@@ -281,3 +285,4 @@ button {
 
     margin: 4px 6px 4px 2px;
 }
+
