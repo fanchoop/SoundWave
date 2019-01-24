@@ -29,7 +29,7 @@ myRouter
         let verification1 = regex.exec(req.files.music.name)[1];
         let verification2 = regex.exec(req.files.cover.name)[1];
 
-        if ((verification1 === "mp3" && verification2 === "jpg") || verification2 === "jpeg") {
+        if ((verification1 === "mp3" && verification2 === "jpg") || verification2 === "jpeg" || verification2 ==="png") {
             //Modification des nom des fichiers pour remplacer les espace par des tirets
             let songwithoutSpace = req.files.music.name.replace(/\s+/g, '-').toLowerCase();
             let newNameSongNoExtNoSPace = req.body.name.replace(/\s+/g, '-').toLowerCase();
@@ -79,7 +79,7 @@ myRouter
                     });
             });
             // Les fichiers sont déplacé dans un autre dossier sur le serveur.
-            cover.mv("../api-rest/public/cover/" + newNameCover, function(err) {
+            cover.mv(appRoot + '/public/cover/' + newNameCover, function(err) {
                 if (err) return res.status(500).send(err);
             });
 
