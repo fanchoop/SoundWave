@@ -67,7 +67,7 @@ Waveform.prototype.moveHover = function (target) {
         } 
 
     }
-};
+}; 
 
 Waveform.prototype.clearHover = function () {
     let rects = document.querySelectorAll("svg > rect.peak");
