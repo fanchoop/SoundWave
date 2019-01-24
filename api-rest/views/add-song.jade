@@ -13,7 +13,7 @@ block content
       .input-group.mb-3
         .custom-file
           label#cover-label.custom-file-label(for='cover') Choisissez une image pour la cover
-          input#cover(type='file' required accept="audio/mp3, audio/wav" name="cover" onchange="updateFilenames(extractFilename(this.value), document.getElementById('cover-label'));")
+          input#cover(type='file' required accept="image" name="cover" onchange="updateFilenames(extractFilename(this.value), document.getElementById('cover-label'));")
       .form-group
         label(for="music-name") Nom
         input#music-name.form-control(type="text" placeholder="Nom de la musique" name="name" value="" required)
