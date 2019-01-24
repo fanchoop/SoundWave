@@ -148,7 +148,7 @@ Waveform.prototype.draw = function () {
         let peakHeight = waveHeight * (value / maxValue);
         let peakY = baseline - peakHeight * this.baselinePourcentage;
 
-        let peakStyle = "stroke-width:" + this.peakOffset / 2 + ";";
+        let peakStyle = "stroke-width:" + this.peakOffset * 0.55  + ";";
         peakStyle += "stroke:#000;";
         peakStyle += "stroke-opacity:0;";
 
@@ -182,8 +182,9 @@ Waveform.prototype.reset = function () {
 };
 
 Waveform.prototype.colorUntilX = function (x) {
+    util.addClassSvg(this.currentPeak, "passed");
     while (this.currentPeak.getAttribute("x") <= x) {
-        util.addClassSvg(this.currentPeak, "passed");
+        util.addClassSvg(this.currentPeak.nextElementSibling, "passed");
         this.currentPeak = this.currentPeak.nextElementSibling;
     }
 };

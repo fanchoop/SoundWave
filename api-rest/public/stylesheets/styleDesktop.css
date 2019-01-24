@@ -286,3 +286,15 @@ button {
     margin: 4px 6px 4px 2px;
 }
 
+.tooltip {
+    position: relative;
+}
+
+.tooltiptext {
+    display: none;
+    position: absolute;
+    bottom: 125%;
+    width: 25vh;
+    right: -10px;
+}
+

@@ -40,3 +40,11 @@ player.setMaxDuree(util.SecToMin(song.duree));
 
 //augmantation du nombre de vue
 player.addView();
+
+
+//bouton share
+player.prepareTooltip();
+
+player.shareDisplay.addEventListener("click", function () {
+    player.toggleTooltip();
+});

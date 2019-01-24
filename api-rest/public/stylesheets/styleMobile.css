@@ -281,3 +281,15 @@ body {
 .hover {
     fill: url(#hover);
 }
+
+.tooltip {
+    position: relative;
+}
+
+.tooltiptext {
+    display: none;
+    position: absolute;
+    bottom: 125%;
+    width: 25vh;
+    right: -10px;
+}

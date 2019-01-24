@@ -10,7 +10,7 @@ Connexion.prototype.GetRequest = function (url, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         if (xhttp.readyState === 4){
-            if (xhttp.status.toString().startsWith(2)) {
+            if (xhttp.status.toString()[0] == 2) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));
@@ -28,7 +28,7 @@ Connexion.prototype.PostRequest = function (url, values, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         if (xhttp.readyState === 4){
-            if (xhttp.status.toString().startsWith(2)) {
+            if (xhttp.status.toString()[0] == 2) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));
@@ -48,7 +48,7 @@ Connexion.prototype.PutRequest = function (url, values, callback) {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         if (xhttp.readyState === 4){
-            if (xhttp.status.toString().startsWith(2)) {
+            if (xhttp.status.toString()[0] == 2) {
                 callback(null, xhttp);
             } else {
                 callback(new Error(this.status, this.statusText));

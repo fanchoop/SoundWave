@@ -142,3 +142,26 @@ Player.prototype.addView = function () {
     });
 };
 // alert ('<iframe src="http://localhost:3000/lecteur/'+song.idPlage+'" width="100%" height="400px" frameborder="no" scrolling="no"></iframe>');
+
+Player.prototype.prepareTooltip = function () {
+    util.addClass(this.shareDisplay, "tooltip");
+    let input = document.createElement("input");
+    input.setAttribute("type", "text")
+    input.setAttribute("value", '<iframe src="http://localhost:3000/lecteur/'+song.idPlage+'" width="100%" height="400px" frameborder="no" scrolling="no"></iframe>');
+    util.addClass(input, "tooltiptext");
+    this.shareDisplay.appendChild(input);
+};
+
+Player.prototype.toggleTooltip = function () {
+    let input = document.querySelector(".tooltiptext");
+    let displayed = input.getAttribute("data-display");
+    if (!displayed) {
+        input.setAttribute("style", "display:inline-block");
+        input.setAttribute("data-display", "true");
+    } else {
+        input.setAttribute("style", "display:none");
+        input.removeAttribute("data-display");
+
+    }
+};
+
