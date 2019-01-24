@@ -12,7 +12,7 @@ var dummyData = {
     "anneePlage": 2018,
     "cheminPochette": "/home/toto/pochette.jpg",
     "cheminMP3": "/home/toto/toto.mp3"
-}
+};
 
 var dummyData2 = {
     "idPlage": 9998,
@@ -27,10 +27,10 @@ var dummyData2 = {
     "anneePlage": 2018,
     "cheminPochette": "/home/toto/pochette.jpg",
     "cheminMP3": "/home/toto/toto.mp3"
-}
+};
 
 test('test insertOne in mongodb', () => {
-    musiqueDAO.insertOne(dummyData, (error, done) => {
+    musiqueDAO.insertOne(dummyData, (error) => {
         expect(error).toBe(null);
         musiqueDAO.deleteOne({"idPlage": 9999}, () => {});
     });
@@ -38,7 +38,7 @@ test('test insertOne in mongodb', () => {
 
 test('test updateOne in mongodb', () => {
     musiqueDAO.insertOne(dummyData, () => {
-        musiqueDAO.updateOne({"idPlage": 9999}, {$set: dummyData2}, (error, done) => {
+        musiqueDAO.updateOne({"idPlage": 9999}, {$set: dummyData2}, (error) => {
             expect(error).toBe(null);
             musiqueDAO.deleteOne({"idPlage": 9998}, () => {});
         });
