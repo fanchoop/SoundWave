@@ -29,14 +29,16 @@ Waveform.prototype.move = function () {
     if (this.currentPeak != null && this.targetPeak != null) {
         this.moving = true;
         if (this.searchLeft(this.currentPeak, this.targetPeak)) {
-            //target à gauche
+            //target à gauche, on se déplace vers la gauche
             util.removeClassSvg(this.currentPeak, "passed");
             this.currentPeak = this.currentPeak.previousElementSibling;
         } else {
             //target à droite
             this.currentPeak = this.currentPeak.nextElementSibling;
             util.addClassSvg(this.currentPeak, "passed");
-            util.removeClassSvg(this.currentPeak, "hover");
+        }
+        if (this.targetHover != null) {
+            this.moveHover(this.targetHover);
         }
         if (this.currentPeak != this.targetPeak) {
             setTimeout(function() {
@@ -51,8 +53,8 @@ Waveform.prototype.move = function () {
 };
 
 Waveform.prototype.moveHover = function (target) {
-    this.targetHover = target;
     let current = this.currentPeak;
+    this.targetHover = target;
     if (this.searchLeft(current, target)){
         // target à gauche
         while (target != current) {
@@ -236,13 +238,13 @@ Waveform.prototype.createGradients = function (svg) {
 
     let stops = [{
         offset: "30%",
-        style: "stop-color:#888;stop-opacity:1"
+        style: "stop-color:#555;stop-opacity:0.7"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
         style: "stop-color:#555;stop-opacity:1"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
-        style: "stop-color:#bbb;stop-opacity:1"
+        style: "stop-color:#555;stop-opacity:0.3"
     }];
 
     for (let i = 0; i < stops.length; i++) {
@@ -261,13 +263,13 @@ Waveform.prototype.createGradients = function (svg) {
 
     let stopsActive = [{
         offset: "20%",
-        style: "stop-color:#ff9400;stop-opacity:1"
+        style: "stop-color:#ff7700;stop-opacity:0.7"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
         style: "stop-color:#ff7700;stop-opacity:1"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
-        style: "stop-color:#ffbd91;stop-opacity:1"
+        style: "stop-color:#ff7700;stop-opacity:0.3"
     }];
 
     for (let i = 0; i < stopsActive.length; i++) {
@@ -287,13 +289,13 @@ Waveform.prototype.createGradients = function (svg) {
 
     let stopsHover = [{
         offset: "20%",
-        style: "stop-color:#000;stop-opacity:1"
+        style: "stop-color:#ffaf6b;stop-opacity:0.7"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
-        style: "stop-color:#000;stop-opacity:1"
+        style: "stop-color:#ffaf6b;stop-opacity:1"
     }, {
         offset: this.baselinePourcentage * 100 + "%",
-        style: "stop-color:#000;stop-opacity:1"
+        style: "stop-color:#ffaf6b;stop-opacity:0.3"
     }];
 
     for (let i = 0; i < stopsHover.length; i++) {
