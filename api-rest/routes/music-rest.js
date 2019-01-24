@@ -63,8 +63,8 @@ myRouter
                 });
             }
             //Chemin d'entrée et de sortie pour la commande audioWaveform
-            let path = "../api-rest/public/songs/" + newNameSong;
-            let dest = "../api-rest/public/songData/" + newNameSongNoExt + ".json";
+            let path = appRoot + '/public/songs/' + newNameSong;
+            let dest = appRoot + '/public/songData/' + newNameSongNoExt + ".json";
             mp3.mv(path, function(err) {
                 if (err) return res.status(500).send(err);
                 // recuperation des metadata
@@ -126,7 +126,6 @@ myRouter
         } else {
             return res.send("Les fichiers fournis ne sont pas au bon format.");
         }
-
     });
 
 //Mise à jour d'une plage.
