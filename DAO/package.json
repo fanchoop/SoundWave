@@ -4,11 +4,12 @@
   "description": "",
   "main": "Musique-db.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.1.10"
+    "mongodb": "^3.1.10",
+    "jest": "^3.1.10"
   }
 }
