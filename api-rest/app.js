@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload');
-var path = require('path');
 global.appRoot = path.resolve(__dirname);
 var app = express();
 
